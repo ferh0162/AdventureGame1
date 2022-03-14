@@ -28,6 +28,10 @@ public class Main {
                 System.out.println("Going South");
             } else if (nextMove == 'l'){
                 System.out.println("You are looking around the room");
+            } else if (nextMove == 'h'){
+                System.out.println(".....");
+            } else if (nextMove == 'e'){
+                System.out.println("Exitting game");
             }
 
 
