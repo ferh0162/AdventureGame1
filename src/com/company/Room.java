@@ -9,10 +9,12 @@ public class Room {
   private Room west;
   private Room south;
 
+  private boolean locked;
 
   public Room(String name, String description){
     this.name = name;
     this.description = description;
+    this.locked = false;
 
   }
 public String nameDescription(){
@@ -20,6 +22,18 @@ public String nameDescription(){
 }
   public String decsriptionDescription() {
     return description;
+  }
+
+  public void lock() {
+    locked = true;
+  }
+
+  public void unlock() {
+    locked = false;
+  }
+
+  public boolean isLocked(){
+    return locked;
   }
 
   public Room getNorth() {
