@@ -9,15 +9,28 @@ public class Adventure {
   private boolean gameStatus = true;
 
   public void allRooms() {
-    Room room1 = new Room("NorthWest", "This is a ");
-    Room room2 = new Room("North", "This cell looks empty, \n" +
+    Room room1 = new Room("Isolation room", "You look around the room and find yourself in the isolation room\n" +
+        "So small, empty and cold...");
+
+    Room room2 = new Room("Mikails Cell", "This cell looks empty, \n" +
         "There is only a toilet in the corner" +
         "\nThe water is still running in the Toilet" +
         "\nThe sink also works");
 
-    Room room3 = new Room("NorthEast", "Rummet øverst til højre");
-    Room room4 = new Room("West", "Rummet til venstre i midten");
-    Room room5 = new Room("Midterste rum", "rummet i midten");
+    Room room3 = new Room("Prison yard", "Your now in a prison yard looks uninhabited\n " +
+        "but watch out there may be something lurking in the dark corners\n" +
+        "further behind the trees you see a chest its unlocked(Looks very old)");
+
+    Room room4 = new Room("Prison canteen", "You look around the Canteen\n" +
+        "It looks like a mess\n" +
+        "There is knives and forks everywhere on the floor\n" +
+        "Food on the ground...\n" +
+        "And it smells absoloutely like shite");
+
+    Room room5 = new Room("Outside to freedom", "Your now ontop of a hill the sun is shinning on you.\\n\" +\n" +
+        "        \"And your now relieved that your finally out of the prison\\n\" +\n" +
+        "        \"As you look up at the sun you say(God bless musa) The end ");
+
     Room room6 = new Room("East", "Rummet helt til højre");
     Room room7 = new Room("SouthWest", "Rum nederst til venstre");
     Room room8 = new Room("South", "Rummet nederst");
