@@ -16,6 +16,12 @@ public class Room {
 
   }
 
+  @Override
+  public String toString() {
+    return
+        description;
+  }
+
   public Room getNorth() {
     return north;
   }
