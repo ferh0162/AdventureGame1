@@ -15,11 +15,11 @@ public class Room {
     this.description = description;
 
   }
-
-  @Override
-  public String toString() {
-    return
-        description;
+public String nameDescription(){
+    return name;
+}
+  public String decsriptionDescription() {
+    return description;
   }
 
   public Room getNorth() {

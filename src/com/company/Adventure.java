@@ -54,6 +54,14 @@ public class Adventure {
     room9.setWest(room8);
 
   }
+  public void help(){
+    System.out.println("Welcome to the adventure game!");
+    System.out.println("Choose between the ACtions:\nNorth = 'n'\nEast = 'e'\nWest = 'w'\nSouth = 's'\n");
+    System.out.println("You can also look around.\nTo look around press:\t'l");
+    System.out.println("You can also exit the game.\nTo exit the game press\t'e");
+    System.out.println("If you need any help press \t'h'");
+    System.out.print("Choose your next move: ");
+  }
   public void checkGameStatus(){
     if (currentRoom == winnerRoom){
       gameStatus = false;
@@ -63,7 +71,8 @@ public class Adventure {
   public void goSouth(){
     if (currentRoom.getSouth() != null){
       currentRoom = currentRoom.getSouth();
-      System.out.println(currentRoom.toString());
+      System.out.println("You are in a:");
+      System.out.println(currentRoom.nameDescription());
     } else {
       System.out.println("You went into the wall, there is no door here");
     }
@@ -71,7 +80,8 @@ public class Adventure {
   public void goNorth(){
     if (currentRoom.getNorth() != null){
       currentRoom = currentRoom.getNorth();
-      System.out.println(currentRoom.toString());
+      System.out.println("You are in a:");
+      System.out.println(currentRoom.nameDescription());
     } else {
       System.out.println("You went into the wall, there is no door here");
     }
@@ -79,7 +89,8 @@ public class Adventure {
   public void goEast(){
     if (currentRoom.getEast() != null){
       currentRoom = currentRoom.getEast();
-      System.out.println(currentRoom.toString());
+      System.out.println("You are in a:");
+      System.out.println(currentRoom.nameDescription());
     } else {
       System.out.println("You went into the wall, there is no door here");
     }
@@ -87,21 +98,20 @@ public class Adventure {
   public void goWest(){
     if (currentRoom.getWest() != null){
       currentRoom = currentRoom.getWest();
-      System.out.println(currentRoom.toString());
+      System.out.println("You are in a:");
+      System.out.println(currentRoom.nameDescription());
     } else {
       System.out.println("You went into the wall, there is no door here");
     }
   }
-public void mainMenu(){
+  public void look(){
+    System.out.println(currentRoom.decsriptionDescription());
+  }
 
+public void mainMenu(){
   allRooms();
 
-  System.out.println("Welcome to the adventure game!");
-  System.out.println("Choose between:\nNorth = 'n'\nEast = 'e'\nWest = 'w'\nSouth = 's'");
-  System.out.println("You can also look around. To look around press 'l");
-  System.out.println("You can aslo exit the game. To exit the game press 'e");
-  System.out.println("If you need any help press 'h");
-  System.out.print("Choose your next move: ");
+  help();
   Scanner sc = new Scanner(System.in);
 
 
@@ -120,9 +130,9 @@ while (gameStatus) {
   } else if (nextMove == 's') {
     System.out.println("Going South");
     goSouth();
-    // System.out.println(currentRoom);
   } else if (nextMove == 'l') {
     System.out.println("You are looking around the room");
+    look();
   } else if (nextMove == 'h') {
     System.out.println(".....");
   } else if (nextMove == 'e') {
