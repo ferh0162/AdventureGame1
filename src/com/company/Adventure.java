@@ -120,6 +120,10 @@ public class Adventure {
   public void look(){
     System.out.println(currentRoom.decsriptionDescription());
   }
+  public void exitGame(){
+    gameStatus = false;
+    System.out.println("The game has ended");
+  }
 
 public void mainMenu(){
   allRooms();
@@ -147,9 +151,10 @@ while (gameStatus) {
     System.out.println("You are looking around the room");
     look();
   } else if (nextMove == 'h') {
-    System.out.println(".....");
+    help();
   } else if (nextMove == 'e') {
     System.out.println("Exitting game");
+    exitGame();
   }
 
   checkGameStatus();
