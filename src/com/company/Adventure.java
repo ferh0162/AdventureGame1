@@ -76,7 +76,12 @@ public class Adventure {
     room9.setWest(room8);
 
   }
-
+public void welcomeMessage(){
+  System.out.println("*THERE IS A NOTE ON THE TABLE*");
+  System.out.println("In the notes it says:");
+  System.out.println("Hello there prisoner 001");
+  System.out.println("");
+}
   public void help() {
     System.out.println("Welcome to the adventure game!");
     System.out.println("Choose between the ACtions:\nNorth = 'n'\nEast = 'e'\nWest = 'w'\nSouth = 's'\n");
@@ -97,7 +102,6 @@ public void checkIfLocked(Room currentRoom){
     if (currentRoom.isLocked()==true){
       System.out.println("The door is locked");
     } else if (currentRoom.isLocked() == false){
-      System.out.println("The room is not locked");
     }
 }
 
@@ -186,6 +190,7 @@ public void checkIfLocked(Room currentRoom){
         System.out.println("Exitting game");
         exitGame();
       }
+      System.out.println("What's your next move?");
       checkIfLocked(currentRoom);
 
       checkGameStatus();
