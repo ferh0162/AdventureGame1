@@ -1,11 +1,16 @@
 package com.company;
 
 public class Worldcreator {
-  private Room currentRoom;
-  private Room requestedRoom;
+  private Room starterRoom;
   private Room winnerRoom;
 
-  private boolean gameStatus = true;
+  public Room getStarterRoom() {
+    return starterRoom;
+  }
+
+  public Room getWinnerRoom() {
+    return winnerRoom;
+  }
 
   public void allRooms() {
     Room room1 = new Room("Isolation room", "You look around the room and find yourself in the isolation room\n" +
@@ -41,7 +46,7 @@ public class Worldcreator {
     Room room9 = new Room("Torture room", "You have entere a torture room\n" +
         "with a few torture instruments which have been used to execute deathrow prisoners");
 
-    currentRoom = room1;
+    starterRoom = room1;
     winnerRoom = room5;
     //Rum 1
     room1.setEast(room2);

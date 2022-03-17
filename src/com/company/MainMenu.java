@@ -4,11 +4,15 @@ import java.util.Scanner;
 
 public class MainMenu {
   private Room currentRoom;
+  private Room requestedRoom;
+  private boolean gameStatus = true;
+
+  private Worldcreator alltherooms;
+
 
   public void goDirection(String direction) {
-    Worldcreator alltherooms = new Worldcreator();
-    alltherooms.allRooms();
-    Room requestedRoom = null;
+
+    requestedRoom = null;
 
     switch (direction) {
       case "north" -> requestedRoom = currentRoom.getNorth();
@@ -31,42 +35,54 @@ public class MainMenu {
   }
 
   public void mainMenu() {
-    Scanner sc = new Scanner(System.in);
+    alltherooms = new Worldcreator();
+    alltherooms.allRooms();
 
-    String nextMove = sc.nextLine();
-    nextMove = nextMove.toLowerCase();
+    currentRoom = alltherooms.getStarterRoom();
+    WelcomeMessage startingMessage = new WelcomeMessage();
+    startingMessage.welcomeMessage();
+    while (gameStatus) {
+      Scanner sc = new Scanner(System.in);
 
-    switch (nextMove) {
-      case "e", "east", "go east" -> {
-        System.out.println("going east");
-        String move = "east";
-        goDirection(move);
+      String nextMove = sc.nextLine();
+      nextMove = nextMove.toLowerCase();
+
+      switch (nextMove) {
+        case "e", "east", "go east" -> {
+          System.out.println("going east");
+          String move = "east";
+          goDirection(move);
+        }
+        case "s", "south", "go south" -> {
+          System.out.println("Going south");
+          String move = "south";
+          goDirection(move);
+        }
+        case "n", "north", "go north" -> {
+          System.out.println("Going North");
+          String move = "north";
+          goDirection(move);
+        }
+        case "w", "west", "go west" -> {
+          System.out.println("Going West");
+          String move = "west";
+          goDirection(move);
+        }
+        case "l", "look", "look around" -> {
+          look();
+        }
+        case "h", "help", "need help" -> {
+          help();
+        }
+        case "exit", "end" -> {
+          exitGame();
+        }
+        default -> System.out.println("What are you trying to do? Make it make sense. What does " + nextMove + "mean?");
       }
-      case "s", "south", "go south" -> {
-        System.out.println("Going south");
-        String move = "south";
-        goDirection(move);
-      }
-      case "n", "north", "go north" -> {
-        System.out.println("Going North");
-        String move = "north";
-        goDirection(move);
-      }
-      case "w", "west", "go west" -> {
-        System.out.println("Going West");
-        String move = "west";
-        goDirection(move);
-      }
-      case "l", "look", "look around" -> {
-        look();
-      }
-      case "h", "help", "need help" -> {
-        help();
-      }
-      case "exit", "end" -> {
-        help();
-      }
-      default -> System.out.println("What are you trying to do? Make it make sense. What does " + nextMove + "mean?");
+      System.out.println("What's your next move?");
+      checkIfLocked(currentRoom);
+
+      checkGameStatus();
     }
   }
 
@@ -75,7 +91,7 @@ public class MainMenu {
   }
 
   public void exitGame() {
-    gameStatus = false;
+    //gameStatus = false;
     System.out.println("The game has ended");
   }
 
@@ -88,4 +104,17 @@ public class MainMenu {
     System.out.print("Choose your next move: ");
   }
 
+  public void checkIfLocked(Room currentRoom) {
+    if (currentRoom.isLocked() == true) {
+      System.out.println("The door is locked");
+    } else if (currentRoom.isLocked() == false) {
+    }
+  }
+
+  public void checkGameStatus() {
+    if (currentRoom == alltherooms.getWinnerRoom()) {
+      gameStatus = false;
+      System.out.println("You have won the game");
+    }
+  }
 }
