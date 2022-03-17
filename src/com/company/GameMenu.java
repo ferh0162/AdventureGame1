@@ -2,16 +2,20 @@ package com.company;
 
 import java.util.Scanner;
 
-public class MainMenu {
+public class GameMenu {
   private Room currentRoom;
   private Room requestedRoom;
   private boolean gameStatus = true;
 
   private Worldcreator alltherooms;
+  private Player player;
 
+
+  public GameMenu() {
+    player = new Player();
+  }
 
   public void goDirection(String direction) {
-
     requestedRoom = null;
 
     switch (direction) {
@@ -23,7 +27,7 @@ public class MainMenu {
 
     if (requestedRoom != null) {
       if (requestedRoom.isLocked()) {
-        System.out.println("Der er låst!");
+        System.out.println("Its locked!");
       } else {
         currentRoom = requestedRoom;
         System.out.println("You are in a:");
@@ -37,10 +41,9 @@ public class MainMenu {
   public void mainMenu() {
     alltherooms = new Worldcreator();
     alltherooms.allRooms();
-
+    welcomeMessage();
     currentRoom = alltherooms.getStarterRoom();
-    WelcomeMessage startingMessage = new WelcomeMessage();
-    startingMessage.welcomeMessage();
+
     while (gameStatus) {
       Scanner sc = new Scanner(System.in);
 
@@ -91,7 +94,7 @@ public class MainMenu {
   }
 
   public void exitGame() {
-    //gameStatus = false;
+    gameStatus = false;
     System.out.println("The game has ended");
   }
 
@@ -116,5 +119,17 @@ public class MainMenu {
       gameStatus = false;
       System.out.println("You have won the game");
     }
+  }
+
+  public void welcomeMessage() {
+    System.out.println("*THERE IS A NOTE ON THE TABLE*");
+    System.out.println("In the notes it states:");
+    System.out.println("Hello there prisoner 001");
+    System.out.println("World war 3 has begun, and therefore we have let everyone loose");
+    System.out.println("You were in a coma, and you did not want to wake up");
+    System.out.println("If you wake up one day, you are free to go");
+    System.out.println();
+    GameMenu instructions = new GameMenu();
+    instructions.help();
   }
 }
