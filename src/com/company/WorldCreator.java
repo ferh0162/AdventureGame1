@@ -44,17 +44,14 @@ public class WorldCreator {
         "The pool is filled with dead bodies and blood maybe the bodies are from the prisoners of this prison");
 
     Room room9 = new Room("Torture room", "You have entere a torture room\n" +
-        "with a few torture instruments which have been used to execute deathrow prisoners");
+        "with a few torture instruments which have been used to execute deathrow prisoners\n" +
+        "There is a bloody key on table");
 
     starterRoom = room1;
     winnerRoom = room5;
     //Rum 1
     room1.setEast(room2);
     room1.setSouth(room4);
-
-    //i room 1 er der en kniv
-    Item knife = new Item("knife");
-    room1.addItem(knife);
 
     //Rum 2
     room2.lock();
@@ -64,13 +61,17 @@ public class WorldCreator {
     room3.setWest(room2);
     room3.setSouth(room6);
     //Rum 4
+    Item knife = new Item("knife");
+    room4.addItem(knife);
+    Item fork = new Item("fork");
+    room4.addItem(fork);
     room4.setNorth(room1);
     room4.setSouth(room7);
-    Item key = new Item("key");
-    room4.addItem(key);
+
     //rum 5
     room5.setSouth(room8);
     //rum 6
+    room6.lock();
     room6.setNorth(room3);
     room6.setSouth(room9);
     //rum 7
@@ -83,6 +84,8 @@ public class WorldCreator {
     //Rum 9
     room9.setNorth(room6);
     room9.setWest(room8);
+    Item key = new Item("key");
+    room9.addItem(key);
 
 
   }

@@ -51,30 +51,14 @@ public class GameMenu {
         }
         // Viser hvilke items der er i det room som player er inden i
         case "show", "show items" -> {
-          // Den returnere her inventorylist som er inden i rooms klassen
-          // så den returnere inventorylist for det room som playeren er inden i
-          System.out.println(player.getPlayerRoom().getItems());
+          printItemsInRoom();
         }
         // Her tager vi en item og sætter den ind i playerens inventory
         case "take", "take items", "take item" -> {
-          // Vi skriver her Items navn. Dvs. det item der skal tages op og sættes ind i inventory
-          System.out.println("What item should be added?");
-          String valgteItem = sc.nextLine();
-
-          // her printer den, hvad metoden returnere.
-          System.out.println(player.takeItem(valgteItem));
-          System.out.print("Your inventory:");
-          System.out.println(player.getPlayerInventory());
+          takeItem();
         }
         case "drop item", "drop", "d" -> {
-          System.out.println("What item should be dropped?");
-          System.out.print("Your inventory:");
-          System.out.println(player.getPlayerInventory());
-          String valgteItem = sc.nextLine();
-
-          System.out.println(player.dropItem(valgteItem));
-          System.out.print("Your inventory:");
-          System.out.println(player.getPlayerInventory());
+          dropItems();
         }
         case "inventory", "show inventory", "i" -> {
           System.out.print("Your inventory:");
@@ -154,5 +138,35 @@ public class GameMenu {
     System.out.println();
     GameMenu instructions = new GameMenu();
     instructions.help();
+  }
+
+  public void dropItems() {
+    Scanner sc = new Scanner(System.in);
+    System.out.println("What item should be dropped?");
+    System.out.print("Your inventory:");
+    System.out.println(player.getPlayerInventory());
+    String valgteItem = sc.nextLine();
+
+    System.out.println(player.dropItem(valgteItem));
+    System.out.print("Your inventory:");
+    System.out.println(player.getPlayerInventory());
+  }
+
+  public void takeItem() {
+    // Vi skriver her Items navn. Dvs. det item der skal tages op og sættes ind i inventory
+    Scanner sc = new Scanner(System.in);
+    System.out.println("What item should be added?");
+    String valgteItem = sc.nextLine();
+
+    // her printer den, hvad metoden returnere.
+    System.out.println(player.takeItem(valgteItem));
+    System.out.print("Your inventory:");
+    System.out.println(player.getPlayerInventory());
+  }
+
+  public void printItemsInRoom() {
+    // Den returnere her inventorylist som er inden i rooms klassen
+    // så den returnere inventorylist for det room som playeren er inden i
+    System.out.println(player.getPlayerRoom().getItems());
   }
 }
