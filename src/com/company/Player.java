@@ -25,9 +25,21 @@ public class Player {
   }
 
   // her looper vi gennemm de items som der er i rummet, og ser om vores efterspurgte item ligger her
-  public Item findItem(String itemName) {
+  public Item findIteminRoom(String itemName) {
     // Her loop den de items som er inde i player room igennem. .getItems() returnere blot roominventory. (array af items i roomet)
     for (Item item : playerRoom.getItems()) {
+      // Hvis item i Stirng == vores itemname, så skal den returnere vores item
+      if (item.getDescription().equals(itemName)) {
+        return item;
+      }
+    }
+    // ellers returnere den null
+    return null;
+  }
+
+  public Item findIteminPlayerInventory(String itemName) {
+    // Her loop den de items som er inde i player room igennem. .getItems() returnere blot roominventory. (array af items i roomet)
+    for (Item item : getPlayerInventory()) {
       // Hvis item i Stirng == vores itemname, så skal den returnere vores item
       if (item.getDescription().equals(itemName)) {
         return item;
@@ -40,7 +52,7 @@ public class Player {
   public String takeItem(String itemName /* "Kniv" */) {
     // Vi modtager her en items navn. Dvs. den item som skal samles op. F.eks. "Kniv"
     // Herfra bruger vi metoden findItem, til at finde "kniv" i rummet
-    Item item = findItem(itemName/* "Kniv" */);
+    Item item = findIteminRoom(itemName/* "Kniv" */);
 
     // Hvis item ikke er null, dvs. Item er true, så betyder det at der er en item der hedder "kniv"
     if (item != null) {
@@ -60,17 +72,17 @@ public class Player {
   }
 
   public String dropItem(String itemName) {
-    Item item = findItem(itemName);
+    Item item = findIteminPlayerInventory(itemName);
 
     if (item != null) {
       playerInventory.remove(item);
 
       playerRoom.addItem(item);
-      System.out.println("You have dropped the item " + itemName);
+      System.out.print("You have dropped the item " + itemName);
     } else {
       return "This item does not exist in your inventory";
     }
-    return null;
+    return "";
   }
 
   public void goDirection(String direction) {

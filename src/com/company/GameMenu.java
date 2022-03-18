@@ -50,13 +50,13 @@ public class GameMenu {
           look();
         }
         // Viser hvilke items der er i det room som player er inden i
-        case "show items" -> {
+        case "show", "show items" -> {
           // Den returnere her inventorylist som er inden i rooms klassen
           // så den returnere inventorylist for det room som playeren er inden i
           System.out.println(player.getPlayerRoom().getItems());
         }
         // Her tager vi en item og sætter den ind i playerens inventory
-        case "take", "take items" -> {
+        case "take", "take items", "take item" -> {
           // Vi skriver her Items navn. Dvs. det item der skal tages op og sættes ind i inventory
           System.out.println("What item should be added?");
           String valgteItem = sc.nextLine();
@@ -66,11 +66,17 @@ public class GameMenu {
           System.out.print("Your inventory:");
           System.out.println(player.getPlayerInventory());
         }
-        case "drop item", "drop" -> {
+        case "drop item", "drop", "d" -> {
           System.out.println("What item should be dropped?");
+          System.out.print("Your inventory:");
+          System.out.println(player.getPlayerInventory());
           String valgteItem = sc.nextLine();
 
           System.out.println(player.dropItem(valgteItem));
+          System.out.print("Your inventory:");
+          System.out.println(player.getPlayerInventory());
+        }
+        case "inventory", "show inventory", "i" -> {
           System.out.print("Your inventory:");
           System.out.println(player.getPlayerInventory());
         }
@@ -82,6 +88,7 @@ public class GameMenu {
         }
         default -> System.out.println("What are you trying to do? Make it make sense. What does " + nextMove + "mean?");
       }
+      System.out.println();
       System.out.println("What's your next move?");
       checkIfLocked(player.getPlayerRoom());
 
@@ -102,7 +109,10 @@ public class GameMenu {
     System.out.println("Welcome to the adventure game!");
     System.out.println("Choose between the Actions:\nNorth = 'n'\nEast = 'e'\nWest = 'w'\nSouth = 's'\n");
     System.out.println("'Look' or 'l'\tTo look arund the room");
+    System.out.println("'Show' or 's'\tTo show the items in the room");
     System.out.println("'Take' or 't'\tTo take  items. You will then be asked which item you want to choose");
+    System.out.println("'drop ' or 'd'\tTo drop an item");
+    System.out.println("'Show inventory'\tTo show inventory");
     System.out.println("'Exit' or 'e'\tTo exit the game");
     System.out.println("'Help' or 'h'\tIf you need any help");
     System.out.println();
@@ -110,6 +120,16 @@ public class GameMenu {
     System.out.println();
   }
 
+  /*
+    public void checkKey(Room currentRoom) {
+      for (Item item : player.getPlayerInventory()) {
+        // Hvis item i Stirng == vores itemname, så skal den returnere vores item
+        if (item.getDescription().equals("key")) {
+          currentRoom.unlock();
+        }
+      }
+    }
+  */
   public void checkIfLocked(Room currentRoom) {
     if (currentRoom.isLocked() == true) {
       System.out.println("The door is locked");

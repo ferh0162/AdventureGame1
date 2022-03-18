@@ -53,8 +53,8 @@ public class WorldCreator {
     room1.setSouth(room4);
 
     //i room 1 er der en kniv
-    Item kniv = new Item("kniv");
-    room1.addItem(kniv);
+    Item knife = new Item("knife");
+    room1.addItem(knife);
 
     //Rum 2
     room2.lock();
@@ -66,15 +66,13 @@ public class WorldCreator {
     //Rum 4
     room4.setNorth(room1);
     room4.setSouth(room7);
+    Item key = new Item("key");
+    room4.addItem(key);
     //rum 5
     room5.setSouth(room8);
     //rum 6
     room6.setNorth(room3);
     room6.setSouth(room9);
-
-    Item key = new Item("key");
-    room6.addItem(key);
-
     //rum 7
     room7.setNorth(room4);
     room7.setEast(room8);
