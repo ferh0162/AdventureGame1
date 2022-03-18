@@ -54,9 +54,23 @@ public class Player {
 
       // Hvis item er == null, så betyder det at der ikke er et item som matchter
     } else {
-      return "Denne item kan ikke tages op";
+      return "This item does not exist in the room";
     }
 
+  }
+
+  public String dropItem(String itemName) {
+    Item item = findItem(itemName);
+
+    if (item != null) {
+      playerInventory.remove(item);
+
+      playerRoom.addItem(item);
+      System.out.println("You have dropped the item " + itemName);
+    } else {
+      return "This item does not exist in your inventory";
+    }
+    return null;
   }
 
   public void goDirection(String direction) {

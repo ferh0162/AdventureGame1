@@ -58,10 +58,20 @@ public class GameMenu {
         // Her tager vi en item og sætter den ind i playerens inventory
         case "take", "take items" -> {
           // Vi skriver her Items navn. Dvs. det item der skal tages op og sættes ind i inventory
-          System.out.println("Hvad skal tilføjes?");
+          System.out.println("What item should be added?");
           String valgteItem = sc.nextLine();
 
+          // her printer den, hvad metoden returnere.
           System.out.println(player.takeItem(valgteItem));
+          System.out.print("Your inventory:");
+          System.out.println(player.getPlayerInventory());
+        }
+        case "drop item", "drop" -> {
+          System.out.println("What item should be dropped?");
+          String valgteItem = sc.nextLine();
+
+          System.out.println(player.dropItem(valgteItem));
+          System.out.print("Your inventory:");
           System.out.println(player.getPlayerInventory());
         }
         case "h", "help", "need help" -> {
@@ -90,12 +100,13 @@ public class GameMenu {
 
   public void help() {
     System.out.println("Welcome to the adventure game!");
-    System.out.println("Choose between the ACtions:\nNorth = 'n'\nEast = 'e'\nWest = 'w'\nSouth = 's'\n");
-    System.out.println("You can also look around.\nTo look around press:\t'l");
-    System.out.println("If you want to take an item: take");
-    System.out.println("You can also exit the game.\nTo exit the game press\t'e");
-    System.out.println("If you need any help press \t'h'");
-    System.out.print("Choose your next move: ");
+    System.out.println("Choose between the Actions:\nNorth = 'n'\nEast = 'e'\nWest = 'w'\nSouth = 's'\n");
+    System.out.println("'Look' or 'l'\tTo look arund the room");
+    System.out.println("'Take' or 't'\tTo take  items. You will then be asked which item you want to choose");
+    System.out.println("'Exit' or 'e'\tTo exit the game");
+    System.out.println("'Help' or 'h'\tIf you need any help");
+    System.out.println();
+    System.out.print("Now choose your next move: ");
     System.out.println();
   }
 
