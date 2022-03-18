@@ -1,6 +1,6 @@
 package com.company;
 
-public class Worldcreator {
+public class WorldCreator {
   private Room starterRoom;
   private Room winnerRoom;
 
@@ -52,6 +52,10 @@ public class Worldcreator {
     room1.setEast(room2);
     room1.setSouth(room4);
 
+    //i room 1 er der en kniv
+    Item kniv = new Item("kniv");
+    room1.addItem(kniv);
+
     //Rum 2
     room2.lock();
     room2.setWest(room1);
@@ -67,6 +71,10 @@ public class Worldcreator {
     //rum 6
     room6.setNorth(room3);
     room6.setSouth(room9);
+
+    Item key = new Item("key");
+    room6.addItem(key);
+
     //rum 7
     room7.setNorth(room4);
     room7.setEast(room8);
@@ -77,6 +85,7 @@ public class Worldcreator {
     //Rum 9
     room9.setNorth(room6);
     room9.setWest(room8);
+
 
   }
 }
