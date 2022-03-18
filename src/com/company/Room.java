@@ -10,7 +10,7 @@ public class Room {
   private Room east;
   private Room west;
   private Room south;
-  private ArrayList<Item> inventoryList;
+  private ArrayList<Item> roomInventory;
 
   private boolean locked;
 
@@ -18,20 +18,20 @@ public class Room {
     this.name = name;
     this.description = description;
     this.locked = false;
-    inventoryList = new ArrayList<>();
+    roomInventory = new ArrayList<>();
 
   }
 
   public void addItem(Item item) {
-    inventoryList.add(item);
+    roomInventory.add(item);
   }
 
   public ArrayList<Item> getItems() {
-    return inventoryList;
+    return roomInventory;
   }
 
   public void removeItem(Item item) {
-    inventoryList.remove(item);
+    roomInventory.remove(item);
   }
 
   public String nameDescription() {

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Player {
   private Room playerRoom;
   private Room requestedRoom;
-  private ArrayList<Item> inventoryPlayer;
+  private ArrayList<Item> playerInventory;
 
   public void setPlayerRoom(Room playerRoom) {
     this.playerRoom = playerRoom;
@@ -15,31 +15,44 @@ public class Player {
     return playerRoom;
   }
 
-  public ArrayList<Item> getInventoryPlayer() {
-    return inventoryPlayer;
+  public ArrayList<Item> getPlayerInventory() {
+    return playerInventory;
   }
 
   public Player() {
-    inventoryPlayer = new ArrayList<>();
+    playerInventory = new ArrayList<>();
 
   }
 
+  // her looper vi gennemm de items som der er i rummet, og ser om vores efterspurgte item ligger her
   public Item findItem(String itemName) {
-    for (Item item : playerRoom.getItems()
-    ) {
+    // Her loop den de items som er inde i player room igennem. .getItems() returnere blot roominventory. (array af items i roomet)
+    for (Item item : playerRoom.getItems()) {
+      // Hvis item i Stirng == vores itemname, så skal den returnere vores item
       if (item.getDescription().equals(itemName)) {
         return item;
       }
     }
+    // ellers returnere den null
     return null;
   }
 
-  public String takeItem(String itemName) {
-    Item item = findItem(itemName);
+  public String takeItem(String itemName /* "Kniv" */) {
+    // Vi modtager her en items navn. Dvs. den item som skal samles op. F.eks. "Kniv"
+    // Herfra bruger vi metoden findItem, til at finde "kniv" i rummet
+    Item item = findItem(itemName/* "Kniv" */);
+
+    // Hvis item ikke er null, dvs. Item er true, så betyder det at der er en item der hedder "kniv"
     if (item != null) {
-      inventoryPlayer.add(item);
-      playerRoom.removeItem(item);
+
+      // Herfra tilføjer vi item, som vi lige har oprettet, til playerinventorys Arraylist
+      playerInventory.add(item /* "Kniv" */);
+
+      // Her sletter vi så item kniv fra rummet. Dvs. det room som playeren er ind, skal have et item fjernet
+      playerRoom.removeItem(item /* "Kniv" */);
       return "The Item " + itemName + " has been taken";
+
+      // Hvis item er == null, så betyder det at der ikke er et item som matchter
     } else {
       return "Denne item kan ikke tages op";
     }
@@ -47,6 +60,8 @@ public class Player {
   }
 
   public void goDirection(String direction) {
+    // Vi sætter vores requested room til null, da vi skal bruge dens boolean længere ned i et if statetement.
+    // Når et room er null, vil det betyder at man ikke kan komme igennem.
     requestedRoom = null;
 
     switch (direction) {

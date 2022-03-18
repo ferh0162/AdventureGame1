@@ -49,14 +49,20 @@ public class GameMenu {
         case "l", "look", "look around" -> {
           look();
         }
+        // Viser hvilke items der er i det room som player er inden i
         case "show items" -> {
+          // Den returnere her inventorylist som er inden i rooms klassen
+          // så den returnere inventorylist for det room som playeren er inden i
           System.out.println(player.getPlayerRoom().getItems());
         }
+        // Her tager vi en item og sætter den ind i playerens inventory
         case "take", "take items" -> {
+          // Vi skriver her Items navn. Dvs. det item der skal tages op og sættes ind i inventory
           System.out.println("Hvad skal tilføjes?");
           String valgteItem = sc.nextLine();
+
           System.out.println(player.takeItem(valgteItem));
-          System.out.println(player.getInventoryPlayer());
+          System.out.println(player.getPlayerInventory());
         }
         case "h", "help", "need help" -> {
           help();
