@@ -85,7 +85,7 @@ public class WorldCreator {
     room9.setNorth(room6);
     room9.setWest(room8);
     Item key = new Item("key");
-    room9.addItem(key);
+    room1.addItem(key);
 
 
   }

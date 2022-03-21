@@ -28,21 +28,25 @@ public class GameMenu {
       switch (nextMove) {
         case "e", "east", "go east" -> {
           System.out.println("going east");
+          System.out.println();
           String move = "east";
           player.goDirection(move);
         }
         case "s", "south", "go south" -> {
           System.out.println("Going south");
+          System.out.println();
           String move = "south";
           player.goDirection(move);
         }
         case "n", "north", "go north" -> {
           System.out.println("Going North");
+          System.out.println();
           String move = "north";
           player.goDirection(move);
         }
         case "w", "west", "go west" -> {
           System.out.println("Going West");
+          System.out.println();
           String move = "west";
           player.goDirection(move);
         }
@@ -74,7 +78,10 @@ public class GameMenu {
       }
       System.out.println();
       System.out.println("What's your next move?");
-      checkIfLocked(player.getPlayerRoom());
+
+      //Check om spilleren har nøglen til rummet, hvis han har så lås rummet op
+      checkKey(player.getPlayerRoom());
+
 
       checkGameStatus();
     }
@@ -91,7 +98,11 @@ public class GameMenu {
 
   public void help() {
     System.out.println("Welcome to the adventure game!");
-    System.out.println("Choose between the Actions:\nNorth = 'n'\nEast = 'e'\nWest = 'w'\nSouth = 's'\n");
+    System.out.println("Choose between the Actions:\n" +
+        "North = 'n' or 'go north'\n" +
+        "East = 'e' or 'go east'\n" +
+        "West = 'w' or 'go west'\n" +
+        "South = 's' or go 'south'\n");
     System.out.println("'Look' or 'l'\tTo look arund the room");
     System.out.println("'Show' or 's'\tTo show the items in the room");
     System.out.println("'Take' or 't'\tTo take  items. You will then be asked which item you want to choose");
@@ -104,8 +115,8 @@ public class GameMenu {
     System.out.println();
   }
 
-  /*
-    public void checkKey(Room currentRoom) {
+
+  public void checkKey(Room currentRoom) {
       for (Item item : player.getPlayerInventory()) {
         // Hvis item i Stirng == vores itemname, så skal den returnere vores item
         if (item.getDescription().equals("key")) {
@@ -113,13 +124,7 @@ public class GameMenu {
         }
       }
     }
-  */
-  public void checkIfLocked(Room currentRoom) {
-    if (currentRoom.isLocked() == true) {
-      System.out.println("The door is locked");
-    } else if (currentRoom.isLocked() == false) {
-    }
-  }
+
 
   public void checkGameStatus() {
     if (player.getPlayerRoom() == alltherooms.getWinnerRoom()) {

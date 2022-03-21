@@ -37,6 +37,20 @@ public class Player {
     return null;
   }
 
+  public boolean hasKey() {
+    // Her loop den de items som er inde i player room igennem. .getItems() returnere blot roominventory. (array af items i roomet)
+    for (Item item : getPlayerInventory()) {
+      // Hvis item i Stirng == vores itemname, så skal den returnere vores item
+      if (item.getDescription().equals("key")) {
+        System.out.println("The door is now unlocked");
+        System.out.println();
+        return true;
+      }
+    }
+    // ellers returnere den null
+    return false;
+  }
+
   public Item findIteminPlayerInventory(String itemName) {
     // Her loop den de items som er inde i player room igennem. .getItems() returnere blot roominventory. (array af items i roomet)
     for (Item item : getPlayerInventory()) {
@@ -97,7 +111,7 @@ public class Player {
       case "west" -> requestedRoom = playerRoom.getWest();
     }
     if (requestedRoom != null) {
-      if (requestedRoom.isLocked()) {
+      if (requestedRoom.isLocked() && !hasKey()) {
         System.out.println("Its locked!");
       } else {
         playerRoom = requestedRoom;

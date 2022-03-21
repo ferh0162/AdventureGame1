@@ -5,8 +5,6 @@ public class Adventure {
     // write your code here
     Adventure obj = new Adventure();
     GameMenu startMenu = new GameMenu();
-    WorldCreator verden = new WorldCreator();
-
     startMenu.mainMenu();
   }
 }
