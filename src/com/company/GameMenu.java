@@ -54,11 +54,11 @@ public class GameMenu {
           look();
         }
         // Viser hvilke items der er i det room som player er inden i
-        case "show", "show items" -> {
+        case "show", "show items", "sh" -> {
           printItemsInRoom();
         }
         // Her tager vi en item og sætter den ind i playerens inventory
-        case "take", "take items", "take item" -> {
+        case "take", "take items", "take item", "t" -> {
           takeItem();
         }
         case "drop item", "drop", "d" -> {
@@ -81,6 +81,7 @@ public class GameMenu {
 
       //Check om spilleren har nøglen til rummet, hvis han har så lås rummet op
       checkKey(player.getPlayerRoom());
+      checkRope(player.getPlayerRoom());
 
 
       checkGameStatus();
@@ -93,18 +94,17 @@ public class GameMenu {
 
   public void exitGame() {
     gameStatus = false;
-    System.out.println("The game has ended");
+    System.out.println("You have now committet suicide");
   }
 
   public void help() {
-    System.out.println("Welcome to the adventure game!");
     System.out.println("Choose between the Actions:\n" +
         "North = 'n' or 'go north'\n" +
         "East = 'e' or 'go east'\n" +
         "West = 'w' or 'go west'\n" +
         "South = 's' or go 'south'\n");
     System.out.println("'Look' or 'l'\tTo look arund the room");
-    System.out.println("'Show' or 's'\tTo show the items in the room");
+    System.out.println("'Show' or 'sh'\tTo show the items in the room");
     System.out.println("'Take' or 't'\tTo take  items. You will then be asked which item you want to choose");
     System.out.println("'drop ' or 'd'\tTo drop an item");
     System.out.println("'Show inventory'\tTo show inventory");
@@ -117,30 +117,41 @@ public class GameMenu {
 
 
   public void checkKey(Room currentRoom) {
-      for (Item item : player.getPlayerInventory()) {
-        // Hvis item i Stirng == vores itemname, så skal den returnere vores item
-        if (item.getDescription().equals("key")) {
-          currentRoom.unlock();
-        }
+    for (Item item : player.getPlayerInventory()) {
+      // Hvis item i Stirng == vores itemname, så skal den returnere vores item
+      if (item.getDescription().equals("key")) {
+        currentRoom.unlock();
       }
     }
+  }
 
+  public void checkRope(Room currentRoom) {
+    for (Item item : player.getPlayerInventory()) {
+      // Hvis item i Stirng == vores itemname, så skal den returnere vores item
+      if (item.getDescription().equals("rope")) {
+        currentRoom.unlock();
+      }
+    }
+  }
 
   public void checkGameStatus() {
     if (player.getPlayerRoom() == alltherooms.getWinnerRoom()) {
       gameStatus = false;
+      System.out.println(player.getPlayerRoom().decsriptionDescription());
       System.out.println("You have won the game");
     }
   }
 
   public void welcomeMessage() {
+    System.out.println("Welcome to the adventure game!");
+    System.out.println();
     System.out.println("*THERE IS A NOTE ON THE TABLE*");
     System.out.println("In the notes it states:");
-    System.out.println("Hello there prisoner 001");
+    System.out.println("Hello there prisoner 31");
     System.out.println("World war 3 has begun, and therefore we have let everyone loose");
-    System.out.println("You were in a coma, and you did not want to wake up");
-    System.out.println("If you wake up one day, you are free to go");
-    System.out.println();
+    System.out.println("You were in a coma, and we could not get everybody out, so we left you behind");
+    System.out.println("If you wake up one day, you are free to go, but it wont be easy to leave, most doors are still locked");
+    System.out.println("I wish you the best of luck");
     GameMenu instructions = new GameMenu();
     instructions.help();
   }

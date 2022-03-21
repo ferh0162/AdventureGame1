@@ -21,7 +21,6 @@ public class Player {
 
   public Player() {
     playerInventory = new ArrayList<>();
-
   }
 
   // her looper vi gennemm de items som der er i rummet, og ser om vores efterspurgte item ligger her
