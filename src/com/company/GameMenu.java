@@ -31,9 +31,10 @@ public class GameMenu {
 
     while (gameStatus) {
       Scanner sc = new Scanner(System.in);
-
+      System.out.print("Shit.. should i continue?\nI should maybe take a look around or see if there is any items in the room?\n" + TEXT_PURPLE + "Whats you next move?: " + TEXT_RESET);
       String nextMove = sc.nextLine();
       nextMove = nextMove.toLowerCase();
+      System.out.println("-----------------------------------------------------------");
 
       switch (nextMove) {
         case "e", "east", "go east" -> {
@@ -87,17 +88,16 @@ public class GameMenu {
         case "eat" -> {
           eat();
         }
-        default -> System.out.println("What are you trying to do? Make it make sense. What does " + nextMove + " mean?");
+        default -> System.out.println("What are you trying to do? Make it make sense.\nWhat does " + TEXT_RED + nextMove + TEXT_RESET + " mean?");
       }
+      System.out.println("-----------------------------------------------------------");
+
       //Check om spilleren har nøglen til rummet, hvis han har så lås rummet op
       checkKey(player.getPlayerRoom());
       checkCrowbar(player.getPlayerRoom());
       checkRope(player.getPlayerRoom());
       checkHealth();
       checkGameStatus();
-
-      System.out.println();
-      System.out.println("What's your next move?");
       System.out.println();
     }
   }
@@ -125,7 +125,6 @@ public class GameMenu {
     System.out.println(TEXT_BLUE + "'Exit' or 'e'\t" + TEXT_RESET + "To exit the game");
     System.out.println(TEXT_BLUE + "'Help' or 'h'\t" + TEXT_RESET + "If you need any help");
     System.out.println();
-    System.out.print("Now choose your next move: ");
     System.out.println();
   }
 
@@ -160,7 +159,7 @@ public class GameMenu {
     if (player.getPlayerRoom() == alltherooms.getWinnerRoom()) {
       gameStatus = false;
       System.out.println(player.getPlayerRoom().decsriptionDescription());
-      System.out.println("You have won the game");
+      System.out.println(TEXT_YELLOW + "You have won the game!" + TEXT_RESET);
     }
   }
 
@@ -211,7 +210,9 @@ public class GameMenu {
     System.out.println("What item should be added?");
     String valgteItem = sc.nextLine();
     System.out.println();
-
+    if (valgteItem.equals("shit")) {
+      System.out.println("You dig your hands in the toilet and pickup a hard chunk of shit\nabsolutely disgusting...");
+    }
     // her printer den, hvad metoden returnere.
     System.out.println(player.takeItem(valgteItem));
     System.out.print("Your inventory:");
@@ -233,7 +234,7 @@ public class GameMenu {
       System.out.println(TEXT_RED + "You're health is low, take it easy" + TEXT_RESET);
     } else if (50 <= playerHealth && playerHealth < 75) {
       System.out.println(TEXT_YELLOW + "You're a little hurt, but you aight" + TEXT_RESET);
-    } else if (75 <= playerHealth && playerHealth <= 100) {
+    } else if (75 <= playerHealth && playerHealth < 100) {
       System.out.println(TEXT_GREEN + "You health is in good condition. You could need a snack though" + TEXT_RESET);
     } else if (playerHealth <= 0) {
       System.out.println(TEXT_RED + "Your bleeding out, and everything turns black.\n You're dead if you haven't figured out" + TEXT_RESET);

@@ -13,13 +13,13 @@ public class WorldCreator {
   }
 
   public void allRooms() {
-    Room room1 = new Room("Prison hospital", "You look around the room and find yourself all alone\n" +
-        "The room is small, empty and bloody...");
+    Room room1 = new Room("Prison hospital room", "You look around the room and find yourself all alone\n" +
+        "The room is small, cold and bloody...");
 
     Room room2 = new Room("Mikails Cell", "This cell looks empty, \n" +
         "There is only a toilet in the corner" +
         "\nThe sink is still running" +
-        "\nIt smells, looks like someone forgot to flush");
+        "\nIt looks like someone forgot to flush");
 
     Room room3 = new Room("Poolroom", "You have entered a room with a pool\n" +
         "The pool is filled with dead bodies and blood maybe the bodies are from the prisoners of this prison");
@@ -57,6 +57,8 @@ public class WorldCreator {
 
     //Rum 2
     room2.lock();
+    Food shit = new Food("shit", -40);
+    room2.addItem(shit);
     room2.setWest(room1);
     room2.setEast(room3);
 

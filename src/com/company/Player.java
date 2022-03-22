@@ -129,10 +129,6 @@ public class Player {
     if (requestedRoom != null) {
       if (requestedRoom.isLocked() && !hasKey()) {
         System.out.println("Its locked!");
-     /* } else if (requestedRoom.isLocked() && !hasRope()){
-        System.out.println("You need something to climb over the fence");
-          }
-*/
       } else {
         playerRoom = requestedRoom;
         System.out.println("You are in:");
