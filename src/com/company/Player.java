@@ -10,7 +10,7 @@ public class Player {
 
   public Player() {
     playerInventory = new ArrayList<>();
-    this.health = 75;
+    this.health = 100;
   }
 
   public void setPlayerRoom(Room playerRoom) {
