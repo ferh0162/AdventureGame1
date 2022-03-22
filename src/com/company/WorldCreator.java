@@ -13,7 +13,7 @@ public class WorldCreator {
   }
 
   public void allRooms() {
-    Room room1 = new Room("Prison hospital", "  You look around the room and find yourself all alone\n" +
+    Room room1 = new Room("Prison hospital", "You look around the room and find yourself all alone\n" +
         "The room is small, empty and bloody...");
 
     Room room2 = new Room("Mikails Cell", "This cell looks empty, \n" +
@@ -52,15 +52,17 @@ public class WorldCreator {
     //Rum 1
     room1.setEast(room2);
     room1.setSouth(room4);
+    Food tuna = new Food("tuna", 50);
+    room1.addItem(tuna);
 
     //Rum 2
     room2.lock();
     room2.setWest(room1);
     room2.setEast(room3);
-    Item rope = new Item("rope");
-    room2.addItem(rope);
 
     //Rum 3
+    Item rope = new Item("rope");
+    room3.addItem(rope);
     room3.setWest(room2);
     room3.setSouth(room6);
     //Rum 4
@@ -77,6 +79,7 @@ public class WorldCreator {
     //rum 6
     room6.setNorth(room3);
     room6.setSouth(room9);
+    room6.lock();
     //rum 7
     room7.setNorth(room4);
     room7.setEast(room8);

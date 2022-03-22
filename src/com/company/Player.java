@@ -6,6 +6,12 @@ public class Player {
   private Room playerRoom;
   private Room requestedRoom;
   private ArrayList<Item> playerInventory;
+  private int health;
+
+  public Player() {
+    playerInventory = new ArrayList<>();
+    this.health = 75;
+  }
 
   public void setPlayerRoom(Room playerRoom) {
     this.playerRoom = playerRoom;
@@ -19,12 +25,9 @@ public class Player {
     return playerInventory;
   }
 
-  public Player() {
-    playerInventory = new ArrayList<>();
-  }
-
-  // her looper vi gennemm de items som der er i rummet, og ser om vores efterspurgte item ligger her
   public Item findIteminRoom(String itemName) {
+    // her looper vi gennemm de items som der er i rummet, og ser om vores efterspurgte item ligger her
+
     // Her loop den de items som er inde i player room igennem. .getItems() returnere blot roominventory. (array af items i roomet)
     for (Item item : playerRoom.getItems()) {
       // Hvis item i Stirng == vores itemname, så skal den returnere vores item
@@ -98,6 +101,20 @@ public class Player {
     return "";
   }
 
+  public String eat(String itemName) {
+    Item item = findIteminPlayerInventory(itemName);
+
+    if (item instanceof Food) {
+      playerInventory.remove(item);
+
+      playerRoom.addItem(item);
+      System.out.print("You have eaten " + itemName);
+      health += ((Food) item).getHealthPoints();
+    } else {
+      return itemName + " is not eatable";
+    }
+    return "";
+  }
   public void goDirection(String direction) {
     // Vi sætter vores requested room til null, da vi skal bruge dens boolean længere ned i et if statetement.
     // Når et room er null, vil det betyder at man ikke kan komme igennem.
@@ -112,9 +129,13 @@ public class Player {
     if (requestedRoom != null) {
       if (requestedRoom.isLocked() && !hasKey()) {
         System.out.println("Its locked!");
+     /* } else if (requestedRoom.isLocked() && !hasRope()){
+        System.out.println("You need something to climb over the fence");
+          }
+*/
       } else {
         playerRoom = requestedRoom;
-        System.out.println("You are in a:");
+        System.out.println("You are in:");
         System.out.println(playerRoom.nameDescription());
       }
     } else {
@@ -122,5 +143,11 @@ public class Player {
     }
   }
 
+  public int getHealth() {
+    return health;
+  }
 
+  public void setHealth(int health) {
+    this.health = health;
+  }
 }
