@@ -31,9 +31,10 @@ public class GameMenu {
 
     while (gameStatus) {
       Scanner sc = new Scanner(System.in);
-      System.out.print("Shit.. should i continue?\nI should maybe take a look around or see if there is any items in the room?\n" + TEXT_PURPLE + "Whats you next move?: " + TEXT_RESET);
+      System.out.print("Shit.. where should i go?\nI should maybe take a look around\nor see if there is any items in the room?\n" + TEXT_PURPLE + "Whats you next move?: " + TEXT_RESET);
       String nextMove = sc.nextLine();
       nextMove = nextMove.toLowerCase();
+      System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
       System.out.println("-----------------------------------------------------------");
 
       switch (nextMove) {
@@ -65,7 +66,9 @@ public class GameMenu {
           look();
         }
         // Viser hvilke items der er i det room som player er inden i
-        case "show", "show items", "sh" -> {
+        case "show", "show items", "sh", "search" -> {
+          System.out.println("searching for items in the room...");
+          System.out.println("While searching for items,\nyou find this inside the room:");
           printItemsInRoom();
         }
         // Her tager vi en item og sætter den ind i playerens inventory
@@ -94,7 +97,6 @@ public class GameMenu {
 
       //Check om spilleren har nøglen til rummet, hvis han har så lås rummet op
       checkKey(player.getPlayerRoom());
-      checkCrowbar(player.getPlayerRoom());
       checkRope(player.getPlayerRoom());
       checkHealth();
       checkGameStatus();
@@ -117,12 +119,12 @@ public class GameMenu {
         "West =" + TEXT_BLUE + " 'w' or 'go west'\n" + TEXT_RESET +
         "South = " + TEXT_BLUE + "'s' or go 'south'\n" + TEXT_RESET);
     System.out.println(TEXT_BLUE + "'Look' or 'l'\t" + TEXT_RESET + "To look arund the room");
-    System.out.println(TEXT_BLUE + "'Show' or 'sh'\t" + TEXT_RESET + "To show the items in the room");
+    System.out.println(TEXT_BLUE + "'Show' or 'search'\t" + TEXT_RESET + "To show the items in the room");
     System.out.println(TEXT_BLUE + "'Take' or 't'\t" + TEXT_RESET + "To take  items. You will then be asked which item you want to choose");
     System.out.println(TEXT_BLUE + "'drop ' or 'd'\t" + TEXT_RESET + "To drop an item");
     System.out.println(TEXT_BLUE + "'eat'\t\t\t" + TEXT_RESET + " To eat an item");
     System.out.println(TEXT_BLUE + "'Show inventory'" + TEXT_RESET + "To show inventory");
-    System.out.println(TEXT_BLUE + "'Exit' or 'e'\t" + TEXT_RESET + "To exit the game");
+    System.out.println(TEXT_BLUE + "'Exit' or 'end'\t" + TEXT_RESET + "To exit the game");
     System.out.println(TEXT_BLUE + "'Help' or 'h'\t" + TEXT_RESET + "If you need any help");
     System.out.println();
     System.out.println();
@@ -150,7 +152,7 @@ public class GameMenu {
     for (Item item : player.getPlayerInventory()) {
       // Hvis item i Stirng == vores itemname, så skal den returnere vores item
       if (item.getDescription().equals("rope")) {
-        currentRoom.unlock();
+        currentRoom.escapeOpen();
       }
     }
   }
@@ -169,12 +171,13 @@ public class GameMenu {
     System.out.println(TEXT_YELLOW + "*THERE IS A NOTE ON THE TABLE*");
     System.out.println(TEXT_YELLOW + "In the notes it states:");
     System.out.println(TEXT_YELLOW + "Hello there prisoner 31");
-    System.out.println(TEXT_YELLOW + "World war 3 has begun, and therefore we have let everyone loose");
+    System.out.println(TEXT_YELLOW + "Covid-20 got taken outta hand, and therefore we have let everyone loose");
+    System.out.println("The worlds future is not looking bright kid");
     System.out.println(TEXT_YELLOW + "You were in a coma, and we could not get everybody out, so we left you behind");
-    System.out.println(TEXT_YELLOW + "If you wake up one day, you are free to go, but it wont be easy to leave, most doors are still locked");
-    System.out.println(TEXT_YELLOW + "I wish you the best of luck" + TEXT_RESET);
-    GameMenu instructions = new GameMenu();
-    instructions.help();
+    System.out.println(TEXT_YELLOW + "If you wake up one day, you are free to go, every man is for himself");
+    System.out.println(TEXT_YELLOW + "I wish you the best of luck\n *UGLY ASS SIGNATURE*\n2023/6/17" + TEXT_RESET);
+    System.out.println();
+    help();
   }
 
   public void dropItems() {
@@ -202,6 +205,7 @@ public class GameMenu {
     System.out.println(player.eat(valgteItem));
     System.out.print("Your inventory:");
     System.out.println(player.getPlayerInventory());
+
   }
 
   public void takeItem() {
@@ -222,7 +226,7 @@ public class GameMenu {
   public void printItemsInRoom() {
     // Den returnere her inventorylist som er inden i rooms klassen
     // så den returnere inventorylist for det room som playeren er inden i
-    System.out.println(player.getPlayerRoom().getItems());
+    System.out.println(TEXT_GREEN + player.getPlayerRoom().getItems() + TEXT_RESET);
   }
 
   public void checkHealth() {

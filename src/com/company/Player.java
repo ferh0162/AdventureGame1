@@ -53,6 +53,21 @@ public class Player {
     return false;
   }
 
+  public boolean hasRope() {
+    // Her loop den de items som er inde i player room igennem. .getItems() returnere blot roominventory. (array af items i roomet)
+    for (Item item : getPlayerInventory()) {
+      // Hvis item i Stirng == vores itemname, så skal den returnere vores item
+      if (item.getDescription().equals("rope")) {
+        System.out.println("You used the rope to climb over the wall...");
+        System.out.println();
+        return true;
+      }
+    }
+    // ellers returnere den null
+    return false;
+  }
+
+
   public Item findIteminPlayerInventory(String itemName) {
     // Her loop den de items som er inde i player room igennem. .getItems() returnere blot roominventory. (array af items i roomet)
     for (Item item : getPlayerInventory()) {
@@ -105,6 +120,15 @@ public class Player {
     Item item = findIteminPlayerInventory(itemName);
 
     if (item instanceof Food) {
+      if (((Food) item).getHealthPoints() < 0) {
+        System.out.println("\u001B[31m" + "What the fuck did i just eat..\n" +
+            "I dont feel so good" + "\u001B[0m");
+
+      } else if (((Food) item).getHealthPoints() > 0 && health == 100) {
+        System.out.println("Well that was a waste off food\n" +
+            "I was already full");
+        //  health += ((Food) item).getHealthPoints();
+      }
       playerInventory.remove(item);
 
       playerRoom.addItem(item);
@@ -113,6 +137,7 @@ public class Player {
     } else {
       return itemName + " is not eatable";
     }
+    System.out.println();
     return "";
   }
   public void goDirection(String direction) {
@@ -129,6 +154,9 @@ public class Player {
     if (requestedRoom != null) {
       if (requestedRoom.isLocked() && !hasKey()) {
         System.out.println("Its locked!");
+      } else if (requestedRoom.isEscapeOpen() && !hasRope()) {
+        System.out.println("its just a big wall/fence, but the barb wires are all broken");
+        System.out.println("hmmm......\nmaybe i could use something to climb over the wall with?");
       } else {
         playerRoom = requestedRoom;
         System.out.println("You are in:");

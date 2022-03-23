@@ -13,6 +13,7 @@ public class Room {
   private ArrayList<Item> roomInventory;
 
   private boolean locked;
+  private boolean escape;
 
   public Room(String name, String description) {
     this.name = name;
@@ -50,7 +51,19 @@ public class Room {
     locked = false;
   }
 
-  public boolean isLocked(){
+  public void escapeClosed() {
+    escape = true;
+  }
+
+  public void escapeOpen() {
+    escape = false;
+  }
+
+  public boolean isEscapeOpen() {
+    return escape;
+  }
+
+  public boolean isLocked() {
     return locked;
   }
 
