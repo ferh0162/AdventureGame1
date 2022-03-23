@@ -128,12 +128,15 @@ public class Player {
         System.out.println("Well that was a waste off food\n" +
             "I was already full");
         //  health += ((Food) item).getHealthPoints();
+      } else if ((((Food) item).getHealthPoints() + health) > 100) {
+        System.out.println("There is too much to eat, i am full now");
       }
       playerInventory.remove(item);
 
       playerRoom.addItem(item);
-      System.out.print("You have eaten " + itemName);
+      System.out.println("You have eaten " + itemName);
       health += ((Food) item).getHealthPoints();
+
     } else {
       return itemName + " is not eatable";
     }

@@ -96,6 +96,7 @@ public class GameMenu {
       System.out.println("-----------------------------------------------------------");
 
       //Check om spilleren har nøglen til rummet, hvis han har så lås rummet op
+      checkRoomObstacles(player.getPlayerRoom());
       checkKey(player.getPlayerRoom());
       checkRope(player.getPlayerRoom());
       checkHealth();
@@ -106,6 +107,14 @@ public class GameMenu {
 
   public void look() {
     System.out.println(player.getPlayerRoom().decsriptionDescription());
+  }
+
+  public void checkRoomObstacles(Room currenRoom) {
+    if (player.getPlayerRoom().nameDescription() == "Inside swimming pool") {
+      System.out.println(TEXT_RED + "You start throwing up because of the terrible smell!" + TEXT_RESET);
+      int playerLife = player.getHealth() - 15;
+      player.setHealth(playerLife);
+    }
   }
 
   public void exitGame() {
@@ -232,7 +241,7 @@ public class GameMenu {
   public void checkHealth() {
     int playerHealth = player.getHealth();
     System.out.print(TEXT_CYAN + "Health status: " + TEXT_RESET);
-    if (playerHealth <= 25) {
+    if (0 < playerHealth && playerHealth <= 25) {
       System.out.println(TEXT_RED + "You have very low health, you are almost bleeding out" + TEXT_RESET);
     } else if (25 <= playerHealth && playerHealth < 50) {
       System.out.println(TEXT_RED + "You're health is low, take it easy" + TEXT_RESET);

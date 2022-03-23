@@ -63,7 +63,7 @@ public class WorldCreator {
     //Rum 1
     room1.setEast(room2);
     room1.setSouth(room4);
-    Food tuna = new Food("twix", 20);
+    Food tuna = new Food("twix", 15);
     room1.addItem(tuna);
 
     //Rum 2
