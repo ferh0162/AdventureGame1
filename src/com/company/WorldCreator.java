@@ -17,16 +17,17 @@ public class WorldCreator {
         "The room is small, cold and bloody...\n" +
         "all  the supplies are gone\n" +
         "But on the note, that they left me, there is a Twix bar\n" +
-        "The watch on the table states that the todays date is 2026/7/16" + "\u001B[0m");
+        "The watch on the table states that the todays date is 2026/7/16\n" +
+        "There is also a pill that says" + "\u001B[31m" + " 'NOT FOR HUMANS'" + "\u001B[0m\n");
 
     Room room2 = new Room("Mikails Cell", "\u001B[33m" + "This cell looks empty, \n" +
         "There is only a toilet in the corner" +
         "\nThe sink is still running" +
         "\nIt looks like someone forgot to flush" + "\u001B[0m");
 
-    Room room3 = new Room("Inside swimming pool", "\u001B[33m" + "You look around the the swimming pool\n" +
-        "The pool is dirty and stinks of waste\n" +
-        "The pool is filled with dead bodies\n" +
+    Room room3 = new Room("Inside swimming area", "\u001B[33m" + "You look around the the swimming pool\n" +
+        "around the pool is dirty as hell and the place stinks of waste\n" +
+        "The pool is filled with....:\ndead\nrotten\nbodies\n" +
         "The water has turned dark red, from the blood of all of the bodies" + "\u001B[0m");
 
     Room room4 = new Room("Prison canteen", "\u001B[33m" + "You look around the Canteen\n" +
@@ -44,8 +45,9 @@ public class WorldCreator {
 
     Room room7 = new Room("Partyroom", "\u001B[33m" + "You look around the festival room\nThere is a lot of musical instruments\n" +
         "Whats that...?\n" +
-        "You hear the drums playing\n" +
-        "But there is no rhytm to it" + "\u001B[0m");
+        "You hear the drums playing very lightly\n" +
+        "But there is no rhytm to it" +
+        "There is a stack of insects inside the drum.\nDisgusting..." + "\u001B[0m\n");
 
     Room room8 = new Room("Prison yard", "\u001B[33m" + "You look around the prison yard\n" +
         "The grass has gotten tall, and it actually looks pretty beautiful " +
@@ -56,15 +58,15 @@ public class WorldCreator {
     Room room9 = new Room("Torture room", "\u001B[33m" + "You have entere a torture room\n" +
         "with a few torture instruments which have been used to execute deathrow prisoners\n" +
         "There is a table in the corner with a bloody key on it\n" +
-        "Touché... There is also a medical bag" + "\u001B[0m");
+        "How humane... There is also a medical bag" + "\u001B[0m");
 
     starterRoom = room1;
     winnerRoom = room5;
     //Rum 1
     room1.setEast(room2);
     room1.setSouth(room4);
-    Food tuna = new Food("twix", 15);
-    room1.addItem(tuna);
+    room1.addItem(new Food("twix"));
+    room1.addItem(new Food("pill", -101));
 
     //Rum 2
     room2.lock();
@@ -74,6 +76,7 @@ public class WorldCreator {
     room2.setEast(room3);
 
     //Rum 3
+    room3.addItem(new Item("diving goggles"));
     room3.setWest(room2);
     room3.setSouth(room6);
 
@@ -93,6 +96,8 @@ public class WorldCreator {
     // room6.setSouth(room9);
 
     //rum 7
+    room7.addItem(new Item("guitar"));
+    room7.addItem(new Food("insect", -15));
     room7.setNorth(room4);
     room7.setEast(room8);
 
@@ -100,13 +105,14 @@ public class WorldCreator {
     room8.setNorth(room5);
     room8.setEast(room9);
     room8.setWest(room7);
+    room8.addItem(new Food("painkillers", 50));
 
     //Rum 9
     //room9.setNorth(room6);
     room9.setWest(room8);
     room9.addItem(new Item("key"));
-    room9.addItem(new Food("painkillers", 50));
 
 
   }
+
 }

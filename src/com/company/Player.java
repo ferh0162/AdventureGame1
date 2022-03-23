@@ -1,16 +1,27 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Player {
   private Room playerRoom;
   private Room requestedRoom;
   private ArrayList<Item> playerInventory;
+  private int invetoryMaxCapacity;
   private int health;
 
   public Player() {
     playerInventory = new ArrayList<>();
+    this.invetoryMaxCapacity = 1; //1 er 2. Husk at index starter på 0
     this.health = 100;
+  }
+
+  public int getInventoryCapacity() {
+    return invetoryMaxCapacity;
+  }
+
+  public int getInventorySize() {
+    return playerInventory.size();
   }
 
   public void setPlayerRoom(Room playerRoom) {
@@ -93,11 +104,13 @@ public class Player {
 
       // Her sletter vi så item kniv fra rummet. Dvs. det room som playeren er ind, skal have et item fjernet
       playerRoom.removeItem(item /* "Kniv" */);
-      return "The Item " + itemName + " has been taken";
+      return "The Item " + "\u001B[32m" + itemName + "\u001B[0m" + " has been taken";
 
       // Hvis item er == null, så betyder det at der ikke er et item som matchter
     } else {
-      return "This item does not exist in the room";
+      System.out.println("\u001B[32m" + itemName + "\u001B[0m" + " does not exist in the room\n");
+
+      return "";
     }
 
   }
@@ -121,7 +134,7 @@ public class Player {
 
     if (item instanceof Food) {
       if (((Food) item).getHealthPoints() < 0) {
-        System.out.println("\u001B[31m" + "What the fuck did i just eat..\n" +
+        System.out.println("\u001B[31m" + "What the fuck did i just eat...\n" +
             "I dont feel so good" + "\u001B[0m");
 
       } else if (((Food) item).getHealthPoints() > 0 && health == 100) {
@@ -134,9 +147,11 @@ public class Player {
       playerInventory.remove(item);
 
       playerRoom.addItem(item);
-      System.out.println("You have eaten " + itemName);
+      System.out.println("You have eaten: " + itemName);
       health += ((Food) item).getHealthPoints();
-
+      if (item.getDescription() == "pill") {
+        System.out.print("\u001B[37m" + "Damn you're a fucking idiot" + "\u001B[0m");
+      }
     } else {
       return itemName + " is not eatable";
     }
@@ -176,5 +191,25 @@ public class Player {
 
   public void setHealth(int health) {
     this.health = health;
+  }
+
+  public void teleport(String direction) {
+    // Vi sætter vores requested room til null, da vi skal bruge dens boolean længere ned i et if statetement.
+    // Når et room er null, vil det betyder at man ikke kan komme igennem.
+    requestedRoom = null;
+
+    switch (direction) {
+      case "north" -> requestedRoom = playerRoom.getNorth();
+      case "south" -> requestedRoom = playerRoom.getSouth();
+      case "east" -> requestedRoom = playerRoom.getEast();
+      case "west" -> requestedRoom = playerRoom.getWest();
+    }
+    if (requestedRoom != null) {
+      playerRoom = requestedRoom;
+      System.out.println("You are in:");
+      System.out.println(playerRoom.nameDescription());
+    } else {
+      System.out.println("You went into the wall, there is no door here");
+    }
   }
 }

@@ -65,14 +65,14 @@ public class GameMenu {
         case "l", "look", "look around" -> {
           look();
         }
-        // Viser hvilke items der er i det room som player er inden i
         case "show", "show items", "sh", "search" -> {
+          // Viser hvilke items der er i det room som player er inden i
           System.out.println("searching for items in the room...");
           System.out.println("While searching for items,\nyou find this inside the room:");
           printItemsInRoom();
         }
-        // Her tager vi en item og sætter den ind i playerens inventory
         case "take", "take items", "take item", "t" -> {
+          // Her tager vi en item og sætter den ind i playerens inventory
           takeItem();
         }
         case "drop item", "drop", "d" -> {
@@ -90,6 +90,10 @@ public class GameMenu {
         }
         case "eat" -> {
           eat();
+        }
+        case "teleport" -> {
+          String teleport = sc.nextLine();
+          player.teleport(teleport);
         }
         default -> System.out.println("What are you trying to do? Make it make sense.\nWhat does " + TEXT_RED + nextMove + TEXT_RESET + " mean?");
       }
@@ -110,9 +114,13 @@ public class GameMenu {
   }
 
   public void checkRoomObstacles(Room currenRoom) {
-    if (player.getPlayerRoom().nameDescription() == "Inside swimming pool") {
+    if (player.getPlayerRoom().nameDescription() == "Inside swimming area") {
       System.out.println(TEXT_RED + "You start throwing up because of the terrible smell!" + TEXT_RESET);
       int playerLife = player.getHealth() - 15;
+      player.setHealth(playerLife);
+    } else if (player.getPlayerRoom().nameDescription() == "Prison yard") {
+      System.out.println(TEXT_RED + "youre getting eaten by mosquitoes" + TEXT_RESET);
+      int playerLife = player.getHealth() - 5;
       player.setHealth(playerLife);
     }
   }
@@ -223,13 +231,19 @@ public class GameMenu {
     System.out.println("What item should be added?");
     String valgteItem = sc.nextLine();
     System.out.println();
+
     if (valgteItem.equals("shit")) {
       System.out.println("You dig your hands in the toilet and pickup a hard chunk of shit\nabsolutely disgusting...");
     }
     // her printer den, hvad metoden returnere.
-    System.out.println(player.takeItem(valgteItem));
-    System.out.print("Your inventory:");
-    System.out.println(player.getPlayerInventory());
+    if (player.getInventorySize() <= player.getInventoryCapacity()) {
+      System.out.println(player.takeItem(valgteItem));
+      System.out.print("Your new inventory:");
+      System.out.println(player.getPlayerInventory());
+    } else {
+      System.out.println(TEXT_RED + "Both your pockets are full\nNo more room in inventory" + TEXT_RESET);
+    }
+
   }
 
   public void printItemsInRoom() {
@@ -248,9 +262,16 @@ public class GameMenu {
     } else if (50 <= playerHealth && playerHealth < 75) {
       System.out.println(TEXT_YELLOW + "You're a little hurt, but you aight" + TEXT_RESET);
     } else if (75 <= playerHealth && playerHealth < 100) {
-      System.out.println(TEXT_GREEN + "You health is in good condition. You could need a snack though" + TEXT_RESET);
+      System.out.println(TEXT_GREEN + "You health is in good condition. Dont worry" + TEXT_RESET);
     } else if (playerHealth <= 0) {
-      System.out.println(TEXT_RED + "Your bleeding out, and everything turns black.\n You're dead if you haven't figured out" + TEXT_RESET);
+      System.out.println(TEXT_RED + "Your bleeding out your eyes and nose and everything turns black.\n" + TEXT_RESET +
+          TEXT_BLACK + "All your memories goes through your mind\n" +
+          "All the doctors yelling at you\n" +
+          "Trying to wake you up\n" +
+          "You got a chance in life and woke up from coma\n" +
+          "You woke up from coma after 3 years\n" +
+          "and still you fuck up....\n" +
+          TEXT_RED + "You're dead if you haven't figured out" + TEXT_RESET);
       gameStatus = false;
     } else if (playerHealth == 100) {
       System.out.println(TEXT_GREEN + "You have full health" + TEXT_RESET);
@@ -259,4 +280,5 @@ public class GameMenu {
       player.setHealth(100);
     }
   }
+
 }
