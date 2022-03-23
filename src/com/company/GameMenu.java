@@ -31,10 +31,16 @@ public class GameMenu {
 
     while (gameStatus) {
       Scanner sc = new Scanner(System.in);
-      System.out.print("Shit.. where should i " + TEXT_BLUE + "go to" + TEXT_RESET + "?\nI should maybe take a " + TEXT_BLUE + "look" + TEXT_RESET + " around\nor " + TEXT_BLUE + "search" + TEXT_RESET + " for items in the room?\n" + TEXT_PURPLE + "Whats you next move?: " + TEXT_RESET);
+      System.out.print("Shit.. where should i " + TEXT_BLUE + "go to" + TEXT_RESET + "?\nI should maybe take a " + TEXT_BLUE + "look" + TEXT_RESET + " around or " + TEXT_BLUE +
+          "search" + TEXT_RESET + " for items in the room? or " + TEXT_BLUE + "take | drop | eat | map |\n" + TEXT_RESET
+          + "If you need help press: " + TEXT_BLUE + "HELP\n\n" + TEXT_PURPLE + "Whats you next move?: " + TEXT_RESET);
       String nextMove = sc.nextLine();
       nextMove = nextMove.toLowerCase();
-      System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+      System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+      System.out.println("\t   O_/\n" +
+          "\t _/|\n" +
+          "\t __)\\\n" +
+          "\t     \\ ");
       System.out.println("-----------------------------------------------------------");
 
       switch (nextMove) {
@@ -84,6 +90,9 @@ public class GameMenu {
         }
         case "h", "help", "need help" -> {
           help();
+        }
+        case "map", "show map", "m" -> {
+          showMap();
         }
         case "exit", "end" -> {
           exitGame();
@@ -140,11 +149,32 @@ public class GameMenu {
     System.out.println(TEXT_BLUE + "'Take' or 't'\t" + TEXT_RESET + "To take  items. You will then be asked which item you want to choose");
     System.out.println(TEXT_BLUE + "'drop ' or 'd'\t" + TEXT_RESET + "To drop an item");
     System.out.println(TEXT_BLUE + "'eat'\t\t\t" + TEXT_RESET + " To eat an item");
-    System.out.println(TEXT_BLUE + "'Show inventory'" + TEXT_RESET + "To show inventory");
+    System.out.println(TEXT_BLUE + "'Show inventory'" + TEXT_RESET + " To show inventory");
+    System.out.println(TEXT_BLUE + "'map' or m" + TEXT_RESET + " To show map");
     System.out.println(TEXT_BLUE + "'Exit' or 'end'\t" + TEXT_RESET + "To exit the game");
     System.out.println(TEXT_BLUE + "'Help' or 'h'\t" + TEXT_RESET + "If you need any help");
     System.out.println();
+
+  }
+
+  public void showMap() {
     System.out.println();
+    System.out.println(TEXT_WHITE +
+        "----------------------------------------------------\n" +
+        "|                |                |                |\n" +
+        "|  Hospital Room |  Mikails Cell  | Swimming Area  |\n" +
+        "|                |                |                |\n" +
+        "|----------------|----------------|----------------|\n" +
+        "|                |                |                |\n" +
+        "|    Canteen     |     Outside    |    Dark Room   |\n" +
+        "|                |       Win      |                |\n" +
+        "|----------------|----------------|----------------|\n" +
+        "|                |                |                |\n" +
+        "|    Party Room  |   Prison Yard  |  Torture Room  |\n" +
+        "|                |                |                |\n" +
+        "----------------------------------------------------\n"
+        + TEXT_RESET
+    );
   }
 
   public void checkCrowbar(Room currentRoom) {
@@ -228,9 +258,9 @@ public class GameMenu {
   public void takeItem() {
     // Vi skriver her Items navn. Dvs. det item der skal tages op og sættes ind i inventory
     Scanner sc = new Scanner(System.in);
-    System.out.println("What item should be added?");
+    System.out.print("What item should be added?\nItems in the Room: ");
+    printItemsInRoom();
     String valgteItem = sc.nextLine();
-    System.out.println();
 
     if (valgteItem.equals("shit")) {
       System.out.println("You dig your hands in the toilet and pickup a hard chunk of shit\nabsolutely disgusting...");
@@ -254,7 +284,7 @@ public class GameMenu {
 
   public void checkHealth() {
     int playerHealth = player.getHealth();
-    System.out.print(TEXT_CYAN + "Health status: " + TEXT_RESET);
+    System.out.print(TEXT_CYAN + "Health status: " + TEXT_RESET + playerHealth + " ");
     if (0 < playerHealth && playerHealth <= 25) {
       System.out.println(TEXT_RED + "You have very low health, you are almost bleeding out" + TEXT_RESET);
     } else if (25 <= playerHealth && playerHealth < 50) {
