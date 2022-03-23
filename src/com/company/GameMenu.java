@@ -31,7 +31,7 @@ public class GameMenu {
 
     while (gameStatus) {
       Scanner sc = new Scanner(System.in);
-      System.out.print("Shit.. where should i go?\nI should maybe take a look around\nor see if there is any items in the room?\n" + TEXT_PURPLE + "Whats you next move?: " + TEXT_RESET);
+      System.out.print("Shit.. where should i " + TEXT_BLUE + "go to" + TEXT_RESET + "?\nI should maybe take a " + TEXT_BLUE + "look" + TEXT_RESET + " around\nor " + TEXT_BLUE + "search" + TEXT_RESET + " for items in the room?\n" + TEXT_PURPLE + "Whats you next move?: " + TEXT_RESET);
       String nextMove = sc.nextLine();
       nextMove = nextMove.toLowerCase();
       System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
