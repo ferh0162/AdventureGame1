@@ -1,5 +1,6 @@
 package com.company;
 
+import java.net.PortUnreachableException;
 import java.util.Scanner;
 
 public class GameMenu {
@@ -31,16 +32,15 @@ public class GameMenu {
 
     while (gameStatus) {
       Scanner sc = new Scanner(System.in);
-      System.out.print("Shit.. where should i " + TEXT_BLUE + "go to" + TEXT_RESET + "?\nI should maybe take a " + TEXT_BLUE + "look" + TEXT_RESET + " around or " + TEXT_BLUE +
-          "search" + TEXT_RESET + " for items in the room? or " + TEXT_BLUE + "take | drop | eat | map |\n" + TEXT_RESET
-          + "If you need help press: " + TEXT_BLUE + "HELP\n\n" + TEXT_PURPLE + "Whats you next move?: " + TEXT_RESET);
+      System.out.print(TEXT_WHITE + "Shit.. where should i " + TEXT_BLUE + "go to" + TEXT_RESET + TEXT_WHITE + "?\nI should maybe take a " + TEXT_BLUE + "look" + TEXT_RESET + TEXT_WHITE + " around or " + TEXT_BLUE +
+          "search" + TEXT_RESET + TEXT_WHITE + " for items in the room? or " + TEXT_BLUE + "take | drop | eat | map |\n" + TEXT_RESET
+          + TEXT_WHITE + "If you need help press: " + TEXT_BLUE + "HELP\n\n" + TEXT_PURPLE + "Whats you next move?: " + TEXT_RESET);
+
       String nextMove = sc.nextLine();
       nextMove = nextMove.toLowerCase();
+
       System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-      System.out.println("\t   O_/\n" +
-          "\t _/|\n" +
-          "\t __)\\\n" +
-          "\t     \\ ");
+      //footPrints();
       System.out.println("-----------------------------------------------------------");
 
       switch (nextMove) {
@@ -68,30 +68,30 @@ public class GameMenu {
           String move = "west";
           player.goDirection(move);
         }
-        case "l", "look", "look around" -> {
+        case "l", "look" -> {
           look();
         }
-        case "show", "show items", "sh", "search" -> {
+        case "show", "sh", "search" -> {
           // Viser hvilke items der er i det room som player er inden i
           System.out.println("searching for items in the room...");
           System.out.println("While searching for items,\nyou find this inside the room:");
           printItemsInRoom();
         }
-        case "take", "take items", "take item", "t" -> {
+        case "take", "t" -> {
           // Her tager vi en item og sætter den ind i playerens inventory
           takeItem();
         }
-        case "drop item", "drop", "d" -> {
+        case "drop", "d" -> {
           dropItems();
         }
-        case "inventory", "show inventory", "i", "show inv" -> {
+        case "inventory", "i" -> {
           System.out.print("Your inventory:");
           System.out.println(player.getPlayerInventory());
         }
-        case "h", "help", "need help" -> {
+        case "h", "help" -> {
           help();
         }
-        case "map", "show map", "m" -> {
+        case "map", "m" -> {
           showMap();
         }
         case "exit", "end" -> {
@@ -103,6 +103,15 @@ public class GameMenu {
         case "teleport" -> {
           String teleport = sc.nextLine();
           player.teleport(teleport);
+        }
+        case "ammo", "magazine" -> {
+          showAmmo();
+        }
+        case "equip" -> {
+          equipWeapon();
+        }
+        case "use", "shoot" -> {
+          useWeapon();
         }
         default -> System.out.println("What are you trying to do? Make it make sense.\nWhat does " + TEXT_RED + nextMove + TEXT_RESET + " mean?");
       }
@@ -138,6 +147,7 @@ public class GameMenu {
     gameStatus = false;
     System.out.println("You have now committet suicide");
   }
+
   public void help() {
     System.out.println("Choose between the Actions:\n" +
         "North =" + TEXT_BLUE + "'n' or 'go north'\n" + TEXT_RESET +
@@ -175,15 +185,6 @@ public class GameMenu {
         "----------------------------------------------------\n"
         + TEXT_RESET
     );
-  }
-
-  public void checkCrowbar(Room currentRoom) {
-    for (Item item : player.getPlayerInventory()) {
-      // Hvis item i Stirng == vores itemname, så skal den returnere vores item
-      if (item.getDescription().equals("crowbar")) {
-        currentRoom.unlock();
-      }
-    }
   }
 
   public void checkKey(Room currentRoom) {
@@ -255,6 +256,17 @@ public class GameMenu {
 
   }
 
+  public void showAmmo() {
+    Scanner sc = new Scanner(System.in);
+    System.out.println("Which gun, would you like to check the magazine for?");
+    System.out.print("Weapons on your belt: ");
+    System.out.println(player.getPlayerBelt());
+    String valgteItem = sc.nextLine();
+    System.out.println();
+    player.showAmmo(valgteItem);
+
+  }
+
   public void takeItem() {
     // Vi skriver her Items navn. Dvs. det item der skal tages op og sættes ind i inventory
     Scanner sc = new Scanner(System.in);
@@ -311,4 +323,28 @@ public class GameMenu {
     }
   }
 
+  public void equipWeapon() {
+    Scanner sc = new Scanner(System.in);
+    System.out.println("Which weapon, would you like to equip?");
+    System.out.print("Your inventory: ");
+    System.out.println(player.getPlayerInventory());
+    String valgteItem = sc.nextLine();
+    System.out.println();
+
+    System.out.println(player.equip(valgteItem));
+  }
+
+  public void footPrints() {
+    System.out.println();
+  }
+
+  public void useWeapon() {
+    Scanner sc = new Scanner(System.in);
+    System.out.println("Which weapon, would you like to use?");
+    System.out.print("Weapons on your belt: ");
+    System.out.println(player.getPlayerBelt());
+    String valgteItem = sc.nextLine();
+    System.out.println();
+    player.useWeapon(valgteItem);
+  }
 }

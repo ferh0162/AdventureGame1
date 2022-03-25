@@ -7,6 +7,7 @@ public class Player {
   private Room playerRoom;
   private Room requestedRoom;
   private ArrayList<Item> playerInventory;
+  private ArrayList<Weapon> playerBelt;
   private int invetoryMaxCapacity;
   private int health;
 
@@ -14,6 +15,7 @@ public class Player {
     playerInventory = new ArrayList<>();
     this.invetoryMaxCapacity = 1; //1 er 2. Husk at index starter på 0
     this.health = 100;
+    playerBelt = new ArrayList<>();
   }
 
   public int getInventoryCapacity() {
@@ -34,6 +36,10 @@ public class Player {
 
   public ArrayList<Item> getPlayerInventory() {
     return playerInventory;
+  }
+
+  public ArrayList<Weapon> getPlayerBelt() {
+    return playerBelt;
   }
 
   public Item findIteminRoom(String itemName) {
@@ -85,6 +91,20 @@ public class Player {
       // Hvis item i Stirng == vores itemname, så skal den returnere vores item
       if (item.getDescription().equals(itemName)) {
         return item;
+      }
+    }
+    // ellers returnere den null
+    return null;
+  }
+
+  public Item findIteminPlayerBelt(String itemName) {
+    // Her loop den de items som er inde i player room igennem. .getItems() returnere blot roominventory. (array af items i roomet)
+    for (Weapon item : getPlayerBelt()) {
+      // Hvis item i Stirng == vores itemname, så skal den returnere vores item
+      if (item.getDescription().equals(itemName)) {
+        return item;
+      } else {
+        System.out.println(itemName + " does not exist in inventory");
       }
     }
     // ellers returnere den null
@@ -146,7 +166,6 @@ public class Player {
       }
       playerInventory.remove(item);
 
-      playerRoom.addItem(item);
       System.out.println("You have eaten: " + itemName);
       health += ((Food) item).getHealthPoints();
       if (item.getDescription() == "pill") {
@@ -158,6 +177,53 @@ public class Player {
     System.out.println();
     return "";
   }
+
+  public String showAmmo(String itemName) {
+    Item item = findIteminPlayerBelt(itemName);
+
+    if (item instanceof RangedWeapon) {
+      System.out.println(itemName + " has " + ((RangedWeapon) item).getBullets() + " bullets left");
+    } else {
+      System.out.println("This item does not have a magazine");
+    }
+
+    return "";
+  }
+
+  public String equip(String itemName) {
+    Item item = findIteminPlayerInventory(itemName);
+
+    if (item instanceof Weapon) {
+      // Hvis item ikke er null, dvs. Item er true, så betyder det at der er en item der hedder "kniv"
+      if (item != null) {
+
+        // Herfra tilføjer vi item, som vi lige har oprettet, til playerinventorys Arraylist
+        playerBelt.add(((RangedWeapon) item));
+
+        // Her sletter vi så item kniv fra rummet. Dvs. det room som playeren er ind, skal have et item fjernet
+        removeFromPlayerInventory(item /* "Kniv" */);
+        return "The Item " + "\u001B[32m" + itemName + "\u001B[0m" + " has been equipped";
+
+      }
+    }
+    return itemName + " does not exist";
+  }
+
+  public void useWeapon(String itemName) {
+    Item item = findIteminPlayerBelt(itemName);
+
+    if (item instanceof RangedWeapon) {
+      ((RangedWeapon) item).useRangedGun();
+    } else {
+      System.out.println("Not yet coded");
+    }
+
+  }
+
+  public void removeFromPlayerInventory(Item item) {
+    playerInventory.remove(item);
+  }
+
   public void goDirection(String direction) {
     // Vi sætter vores requested room til null, da vi skal bruge dens boolean længere ned i et if statetement.
     // Når et room er null, vil det betyder at man ikke kan komme igennem.

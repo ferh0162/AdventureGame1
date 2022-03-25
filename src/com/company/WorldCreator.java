@@ -40,7 +40,27 @@ public class WorldCreator {
         "And your now relieved that your finally out of the prison\n" +
         "As you look up at the hot sun burning your skin, you hear a helicopter a far" + "\u001B[0m");
 
-    Room room6 = new Room("The dark room", "\u001B[33m" + "You look around, but cant se a thing\n" +
+    Room room6 = new Room("The dark room", "" +
+        " ___________.._______\n" +
+        "| .__________))______|\n" +
+        "| | / /      ||\n" +
+        "| |/ /       ||\n" +
+        "| | /        ||.-''.\n" +
+        "| |/         |/  _  \\\n" +
+        "| |          ||  `/,|\n" +
+        "| |          (\\\\`_.'\n" +
+        "| |         .-`--'.\n" +
+        "| |        /Y . . Y\\\n" +
+        "| |       // |   | \\\\\n" +
+        "| |      //  | . |  \\\\\n" +
+        "| |     ')   |   |   (`\n" +
+        "| |          ||'||\n" +
+        "| |          || ||\n" +
+        "| |          || ||\n" +
+        "| |          || ||\n" +
+        "| |         / | | \\\n" +
+        "            `-' `-'         \n" +
+        "\n\u001B[33m" + "You look around, but cant se a thing\n" +
         "It does smell like there is a dead body inside." + "\u001B[0m");
 
     Room room7 = new Room("Partyroom", "\u001B[33m" + "You look around the festival room\nThere is a lot of musical instruments\n" +
@@ -49,7 +69,19 @@ public class WorldCreator {
         "But there is no rhytm to it" +
         "There is a stack of insects inside the drum.\nDisgusting..." + "\u001B[0m\n");
 
-    Room room8 = new Room("Prison yard", "\u001B[33m" + "You look around the prison yard\n" +
+    Room room8 = new Room("Prison yard", "" +
+        "                 _  _\n" +
+        "                | )/ )\n" +
+        "             \\\\ |//,' __\n" +
+        "             (\")(_)-\"()))=-\n" +
+        "                (\\\\\n" +
+        "                             _   _\n" +
+        "  HEELP                     ( | / )\n" +
+        "                          \\\\ \\|/,' __\n" +
+        "    \\_o_/                 (\")(_)-\"()))=-\n" +
+        "       )                     <\\\\\n" +
+        "      /\\__\n" +
+        "_____ \\ ________________________________\n\u001B[33m" + "You look around the prison yard\n" +
         "The grass has gotten tall, and it actually looks pretty beautiful " +
         "but watch out there may be something lurking in the dark corners\n" +
         "further behind the tall grass you see a suitcase\n" +
@@ -67,6 +99,7 @@ public class WorldCreator {
     room1.setSouth(room4);
     room1.addItem(new Food("twix"));
     room1.addItem(new Food("pill", -101));
+    room1.addItem(new RangedWeapon("glock", 10));
 
     //Rum 2
     room2.lock();
