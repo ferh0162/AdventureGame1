@@ -1,22 +1,34 @@
 package com.company;
 
+import java.util.Arrays;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Tester {
 
   public static void main(String[] args) {
     // write your code here
-    String mitNavn = "Ferhat";
-    mitNavn = mitNavn + " ";
+    Tester obj = new Tester();
+    String text = "Ferhat";
 
+    String førsteOrd = "";
+    String andetOrd = "";
+    int index = text.indexOf(' ');
 
-    int firstIndex = mitNavn.indexOf(mitNavn);
-    String forNavn = mitNavn.substring(0, firstIndex);
+    if (index > -1) { // Check if there is more than one word.
 
+      førsteOrd = text.substring(0, index).trim(); // Extract first word.
+      andetOrd = text.substring(index + 1, text.length());
+      System.out.println("førsteord" + førsteOrd);
+      System.out.println("andetord" + andetOrd);
 
-    int lastIndex = mitNavn.lastIndexOf(" ");
-    String efterNavn = mitNavn.substring(lastIndex);
-
-
+    } else {
+      System.out.println("else " + text);
+      ; // Text is the first word itself.
+    }
+    System.out.println(text);
+    System.out.println(førsteOrd);
+    System.out.println(andetOrd);
   }
-}
+  }
+

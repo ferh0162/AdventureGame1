@@ -39,11 +39,38 @@ public class GameMenu {
       String nextMove = sc.nextLine();
       nextMove = nextMove.toLowerCase();
 
+      String text = nextMove;
+
+      String førsteOrd = "";
+      String andetOrd = "";
+      int index = text.indexOf(' ');
+
+      if (index > -1) { // Check if there is more than one word.
+
+        førsteOrd = text.substring(0, index).trim(); // Extract first word.
+        andetOrd = text.substring(index + 1, text.length());
+        System.out.println("førsteord" + førsteOrd);
+        System.out.println("andetord" + andetOrd);
+
+        if (førsteOrd.equals("go")) {
+          førsteOrd = andetOrd;
+        }
+
+      } else {
+        førsteOrd = text; // Text is the first word itself.
+      }
+
+      System.out.println(text);
+      System.out.println(førsteOrd);
+      System.out.println(andetOrd);
+
+
       System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+
       //footPrints();
       System.out.println("-----------------------------------------------------------");
 
-      switch (nextMove) {
+      switch (førsteOrd) {
         case "e", "east", "go east" -> {
           System.out.println("going east");
           System.out.println();
@@ -79,10 +106,18 @@ public class GameMenu {
         }
         case "take", "t" -> {
           // Her tager vi en item og sætter den ind i playerens inventory
-          takeItem();
+          if (text.equals("take")) {
+            takeItem();
+          } else {
+            takeItem(andetOrd);
+          }
         }
         case "drop", "d" -> {
-          dropItems();
+          if (text.equals("drop")) {
+            dropItems();
+          } else {
+            dropItems(andetOrd);
+          }
         }
         case "inventory", "i" -> {
           System.out.print("Your inventory:");
@@ -110,10 +145,10 @@ public class GameMenu {
         case "equip" -> {
           equipWeapon();
         }
-        case "use", "shoot" -> {
+        case "use", "shoot", "attack" -> {
           useWeapon();
         }
-        default -> System.out.println("What are you trying to do? Make it make sense.\nWhat does " + TEXT_RED + nextMove + TEXT_RESET + " mean?");
+        default -> System.out.println("What are you trying to do? Make it make sense.\nWhat does " + TEXT_RED + førsteOrd + TEXT_RESET + " mean?");
       }
       System.out.println("-----------------------------------------------------------");
 
@@ -242,6 +277,15 @@ public class GameMenu {
     System.out.println(player.getPlayerInventory());
   }
 
+  public void dropItems(String item) {
+    String valgteItem = item;
+    System.out.println();
+
+    System.out.println(player.dropItem(valgteItem));
+    System.out.print("Your inventory:");
+    System.out.println(player.getPlayerInventory());
+  }
+
   public void eat() {
     Scanner sc = new Scanner(System.in);
     System.out.println("What item should be eaten?");
@@ -288,6 +332,24 @@ public class GameMenu {
 
   }
 
+  public void takeItem(String item) {
+    // Vi skriver her Items navn. Dvs. det item der skal tages op og sættes ind i inventory
+
+    String valgteItem = item;
+
+    if (valgteItem.equals("shit")) {
+      System.out.println("You dig your hands in the toilet and pickup a hard chunk of shit\nabsolutely disgusting...");
+    }
+    // her printer den, hvad metoden returnere.
+    if (player.getInventorySize() <= player.getInventoryCapacity()) {
+      System.out.println(player.takeItem(valgteItem));
+      System.out.print("Your new inventory:");
+      System.out.println(player.getPlayerInventory());
+    } else {
+      System.out.println(TEXT_RED + "Both your pockets are full\nNo more room in inventory" + TEXT_RESET);
+    }
+
+  }
   public void printItemsInRoom() {
     // Den returnere her inventorylist som er inden i rooms klassen
     // så den returnere inventorylist for det room som playeren er inden i
@@ -339,12 +401,16 @@ public class GameMenu {
   }
 
   public void useWeapon() {
-    Scanner sc = new Scanner(System.in);
+ /*   Scanner sc = new Scanner(System.in);
     System.out.println("Which weapon, would you like to use?");
     System.out.print("Weapons on your belt: ");
     System.out.println(player.getPlayerBelt());
     String valgteItem = sc.nextLine();
-    System.out.println();
-    player.useWeapon(valgteItem);
+    System.out.println();*/
+    if (player.getEquippedWeapon() == "") {
+      System.out.println("You have no weapon equipped");
+    } else {
+      player.useWeapon(player.getEquippedWeapon());
+    }
   }
 }

@@ -42,6 +42,10 @@ public class Player {
     return playerBelt;
   }
 
+  public String getEquippedWeapon() {
+    return String.valueOf(playerBelt.get(0));
+  }
+
   public Item findIteminRoom(String itemName) {
     // her looper vi gennemm de items som der er i rummet, og ser om vores efterspurgte item ligger her
 
@@ -128,7 +132,7 @@ public class Player {
 
       // Hvis item er == null, så betyder det at der ikke er et item som matchter
     } else {
-      System.out.println("\u001B[32m" + itemName + "\u001B[0m" + " does not exist in the room\n");
+      System.out.println("\u001B[31m" + itemName + "\u001B[0m" + " does not exist in the room\n");
 
       return "";
     }
