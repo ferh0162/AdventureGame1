@@ -194,6 +194,18 @@ public class Player {
     return "";
   }
 
+  public String showAmmoInventory(String itemName) {
+    Item item = findIteminPlayerInventory(itemName);
+
+    if (item instanceof RangedWeapon) {
+      System.out.println(itemName + " has " + ((RangedWeapon) item).getBullets() + " bullets left");
+    } else {
+      System.out.println("This item does not have a magazine");
+    }
+
+    return "";
+  }
+
   public String equip(String itemName) {
     Item item = findIteminPlayerInventory(itemName);
 
@@ -213,6 +225,19 @@ public class Player {
     return itemName + " does not exist";
   }
 
+  public String unEquip(String itemName) {
+    Item item = findIteminPlayerBelt(itemName);
+
+    if (item != null) {
+      playerBelt.remove(item);
+
+      playerInventory.add(item);
+      System.out.print("You have uneqipped the item " + itemName);
+    } else {
+      return "Your inventory is full";
+    }
+    return "";
+  }
   public void useWeapon(String itemName) {
     Item item = findIteminPlayerBelt(itemName);
 

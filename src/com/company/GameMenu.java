@@ -32,8 +32,8 @@ public class GameMenu {
 
     while (gameStatus) {
       Scanner sc = new Scanner(System.in);
-      System.out.print(TEXT_WHITE + "Shit.. where should i " + TEXT_BLUE + "go to" + TEXT_RESET + TEXT_WHITE + "?\nI should maybe take a " + TEXT_BLUE + "look" + TEXT_RESET + TEXT_WHITE + " around or " + TEXT_BLUE +
-          "search" + TEXT_RESET + TEXT_WHITE + " for items in the room? or " + TEXT_BLUE + "take | drop | eat | map |\n" + TEXT_RESET
+      System.out.print(TEXT_WHITE + "Shit.. where should i " + TEXT_BLUE + "go to" + TEXT_RESET + TEXT_WHITE + "?\nMaybe take a " + TEXT_BLUE + "look" + TEXT_RESET + TEXT_WHITE + " around or " + TEXT_BLUE +
+          "search" + TEXT_RESET + TEXT_WHITE + " for items in the room?\nor " + TEXT_BLUE + "take | drop | eat | Equip | Unequip | Attack | Ammo | map |\n" + TEXT_RESET
           + TEXT_WHITE + "If you need help press: " + TEXT_BLUE + "HELP\n\n" + TEXT_PURPLE + "Whats you next move?: " + TEXT_RESET);
 
       String nextMove = sc.nextLine();
@@ -148,6 +148,9 @@ public class GameMenu {
         case "use", "shoot", "attack" -> {
           useWeapon();
         }
+        case "unequip" -> {
+          unEquipWeapon();
+        }
         default -> System.out.println("What are you trying to do? Make it make sense.\nWhat does " + TEXT_RED + førsteOrd + TEXT_RESET + " mean?");
       }
       System.out.println("-----------------------------------------------------------");
@@ -185,19 +188,20 @@ public class GameMenu {
 
   public void help() {
     System.out.println("Choose between the Actions:\n" +
-        "North =" + TEXT_BLUE + "'n' or 'go north'\n" + TEXT_RESET +
-        "East =" + TEXT_BLUE + " 'e' or 'go east'\n" + TEXT_RESET +
-        "West =" + TEXT_BLUE + " 'w' or 'go west'\n" + TEXT_RESET +
-        "South = " + TEXT_BLUE + "'s' or go 'south'\n" + TEXT_RESET);
-    System.out.println(TEXT_BLUE + "'Look' or 'l'\t" + TEXT_RESET + "To look arund the room");
-    System.out.println(TEXT_BLUE + "'Show' or 'search'\t" + TEXT_RESET + "To show the items in the room");
-    System.out.println(TEXT_BLUE + "'Take' or 't'\t" + TEXT_RESET + "To take  items. You will then be asked which item you want to choose");
-    System.out.println(TEXT_BLUE + "'drop ' or 'd'\t" + TEXT_RESET + "To drop an item");
-    System.out.println(TEXT_BLUE + "'eat'\t\t\t" + TEXT_RESET + " To eat an item");
-    System.out.println(TEXT_BLUE + "'Show inventory'" + TEXT_RESET + " To show inventory");
-    System.out.println(TEXT_BLUE + "'map' or m" + TEXT_RESET + " To show map");
-    System.out.println(TEXT_BLUE + "'Exit' or 'end'\t" + TEXT_RESET + "To exit the game");
-    System.out.println(TEXT_BLUE + "'Help' or 'h'\t" + TEXT_RESET + "If you need any help");
+        "North  =  " + TEXT_BLUE + "'n' or 'go north'\n" + TEXT_RESET +
+        "East   =  " + TEXT_BLUE + "'e' or 'go east'\n" + TEXT_RESET +
+        "West   =  " + TEXT_BLUE + "'w' or 'go west'\n" + TEXT_RESET +
+        "South  =  " + TEXT_BLUE + "'s' or go 'south'\n" + TEXT_RESET);
+    System.out.println(TEXT_BLUE + "'Look' or 'l'        " + TEXT_RESET + "To look arund the room");
+    System.out.println(TEXT_BLUE + "'Show' or 'search'   " + TEXT_RESET + "To show the items in the room");
+    System.out.println(TEXT_BLUE + "'Take' or 't'        " + TEXT_RESET + "To take  items. You will then be asked which item you want to choose");
+    System.out.println(TEXT_BLUE + "'drop ' or 'd'       " + TEXT_RESET + "To drop an item");
+    System.out.println(TEXT_BLUE + "'eat'                " + TEXT_RESET + "To eat an item");
+    System.out.println(TEXT_BLUE + "'inventory'          " + TEXT_RESET + "To show inventory");
+    System.out.println(TEXT_BLUE + "'map' or m'          " + TEXT_RESET + "To show map");
+    System.out.println(TEXT_BLUE + "'Attack' or Shoot    " + TEXT_RESET + "To Attack");
+    System.out.println(TEXT_BLUE + "'Exit' or 'end'      " + TEXT_RESET + "To exit the game");
+    System.out.println(TEXT_BLUE + "'Help' or 'h'        " + TEXT_RESET + "If you need any help");
     System.out.println();
 
   }
@@ -303,11 +307,21 @@ public class GameMenu {
   public void showAmmo() {
     Scanner sc = new Scanner(System.in);
     System.out.println("Which gun, would you like to check the magazine for?");
-    System.out.print("Weapons on your belt: ");
-    System.out.println(player.getPlayerBelt());
-    String valgteItem = sc.nextLine();
-    System.out.println();
-    player.showAmmo(valgteItem);
+    if (player.getPlayerBelt().size() < 1) {
+      System.out.println("Weapons in your inventory: ");
+      System.out.println(player.getPlayerInventory());
+
+      String valgteItem = sc.nextLine();
+      System.out.println();
+      player.showAmmoInventory(valgteItem);
+    } else {
+      System.out.print("Weapons on your belt: ");
+      System.out.println(player.getPlayerBelt());
+
+      String valgteItem = sc.nextLine();
+      System.out.println();
+      player.showAmmo(valgteItem);
+    }
 
   }
 
@@ -396,21 +410,28 @@ public class GameMenu {
     System.out.println(player.equip(valgteItem));
   }
 
-  public void footPrints() {
-    System.out.println();
+  public void unEquipWeapon() {
+    if (player.getPlayerInventory().size() <= player.getInventoryCapacity()) {
+      Scanner sc = new Scanner(System.in);
+      System.out.println("Which weapon, would you like to Unequip?");
+      System.out.print("Your belt: ");
+      System.out.println(player.getPlayerBelt());
+      String valgteItem = sc.nextLine();
+      System.out.println();
+
+      System.out.println(player.unEquip(valgteItem));
+    } else {
+      System.out.println(TEXT_RED + "Inventory is Full" + TEXT_RESET + "You need to drop something first");
+    }
+
   }
 
   public void useWeapon() {
- /*   Scanner sc = new Scanner(System.in);
-    System.out.println("Which weapon, would you like to use?");
-    System.out.print("Weapons on your belt: ");
-    System.out.println(player.getPlayerBelt());
-    String valgteItem = sc.nextLine();
-    System.out.println();*/
-    if (player.getEquippedWeapon() == "") {
-      System.out.println("You have no weapon equipped");
+    if (player.getPlayerBelt().size() < 1) {
+      System.out.println("You dont have anything to attack with");
     } else {
       player.useWeapon(player.getEquippedWeapon());
+
     }
   }
 }
