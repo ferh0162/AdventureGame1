@@ -176,7 +176,7 @@ public class Player {
         System.out.print("\u001B[37m" + "Damn you're a fucking idiot" + "\u001B[0m");
       }
     } else {
-      return itemName + " is not eatable";
+      return Color.RED + itemName + Color.RESET + " is not eatable";
     }
     System.out.println();
     return "";
@@ -186,7 +186,7 @@ public class Player {
     Item item = findIteminPlayerBelt(itemName);
 
     if (item instanceof RangedWeapon) {
-      System.out.println(itemName + " has " + ((RangedWeapon) item).getBullets() + " bullets left");
+      System.out.println(itemName + " has " + ((RangedWeapon) item).getNumberOfUsesLeft() + " bullets left");
     } else {
       System.out.println("This item does not have a magazine");
     }
@@ -198,7 +198,7 @@ public class Player {
     Item item = findIteminPlayerInventory(itemName);
 
     if (item instanceof RangedWeapon) {
-      System.out.println(itemName + " has " + ((RangedWeapon) item).getBullets() + " bullets left");
+      System.out.println(itemName + " has " + ((RangedWeapon) item).getNumberOfUsesLeft() + " bullets left");
     } else {
       System.out.println("This item does not have a magazine");
     }
@@ -214,7 +214,7 @@ public class Player {
       if (item != null) {
 
         // Herfra tilføjer vi item, som vi lige har oprettet, til playerinventorys Arraylist
-        playerBelt.add(((RangedWeapon) item));
+        playerBelt.add((Weapon) item);
 
         // Her sletter vi så item kniv fra rummet. Dvs. det room som playeren er ind, skal have et item fjernet
         removeFromPlayerInventory(item /* "Kniv" */);
@@ -240,13 +240,14 @@ public class Player {
   }
   public void useWeapon(String itemName) {
     Item item = findIteminPlayerBelt(itemName);
-
-    if (item instanceof RangedWeapon) {
+    ((Weapon) item).useWeapon();
+/*
+    if (item instanceof Weapon) {
       ((RangedWeapon) item).useRangedGun();
     } else {
       System.out.println("Not yet coded");
     }
-
+*/
   }
 
   public void removeFromPlayerInventory(Item item) {

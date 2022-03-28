@@ -1,20 +1,44 @@
 package com.company;
 
-public class Weapon extends Item {
+public abstract class Weapon extends Item {
   private int damage;
+  private double numberOfUsesLeft = Double.POSITIVE_INFINITY;
 
   public Weapon(String description, int damage) {
     super(description);
     this.damage = damage;
   }
 
-  public void useWeapon(Weapon weapon) {
-    if (weapon instanceof RangedWeapon) {
-      if (((RangedWeapon) weapon).getBullets() < 1) {
-
+  public void useWeapon() {
+    if (numberOfUsesLeft == Double.POSITIVE_INFINITY) {
+      // ER infinity weapon
+      System.out.println("You have attacked with the meleeweapon");
+    } else {
+      numberOfUsesLeft -= 1;
+      if (numberOfUsesLeft <= 0) {
+        numberOfUsesLeft = 0;
+        System.out.println("no more ammo");
+      } else {
+        System.out.println("BANG!");
       }
-
     }
+
   }
 
+
+  public int getDamage() {
+    return damage;
+  }
+
+  public void setDamage(int damage) {
+    this.damage = damage;
+  }
+
+  public double getNumberOfUsesLeft() {
+    return numberOfUsesLeft;
+  }
+
+  public void setNumberOfUsesLeft(double numberOfUsesLeft) {
+    this.numberOfUsesLeft = numberOfUsesLeft;
+  }
 }

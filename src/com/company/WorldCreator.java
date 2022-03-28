@@ -18,7 +18,8 @@ public class WorldCreator {
         "all  the supplies are gone\n" +
         "But on the note, that they left me, there is a Twix bar\n" +
         "The watch on the table states that the todays date is 2026/7/16\n" +
-        "There is also a pill that says" + "\u001B[31m" + " 'NOT FOR HUMANS'" + "\u001B[0m\n");
+        "There is also a pill that says" + "\u001B[31m" + " 'NOT FOR HUMANS'" + "\u001B[0m\n\n" +
+        Color.WHITE_ITALIC + "There is a door to the: " + Color.BOXING + " East and South " + Color.RESET);
 
     Room room2 = new Room("Mikails Cell", "\u001B[33m" + "This cell looks empty, \n" +
         "There is only a toilet in the corner" +
