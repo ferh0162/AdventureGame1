@@ -60,6 +60,19 @@ public class Player {
     return null;
   }
 
+  public Enemy findEnemyinRoom(String enemyName) {
+    for (Enemy enemy : playerRoom.getEnemy()) {
+      if (playerRoom.getEnemy().equals(enemyName)) {
+        return enemy;
+      }
+    }
+    return null;
+  }
+
+  public Enemy findEnemyinRoom() {
+    return playerRoom.getEnemy().get(0);
+  }
+
   public boolean hasKey() {
     // Her loop den de items som er inde i player room igennem. .getItems() returnere blot roominventory. (array af items i roomet)
     for (Item item : getPlayerInventory()) {
@@ -238,16 +251,41 @@ public class Player {
     }
     return "";
   }
+
   public void useWeapon(String itemName) {
-    Item item = findIteminPlayerBelt(itemName);
-    ((Weapon) item).useWeapon();
-/*
-    if (item instanceof Weapon) {
-      ((RangedWeapon) item).useRangedGun();
+    Item item = findIteminPlayerBelt(itemName); //finder våbnet i inventory, og tjekker om det findes
+
+    if (((Weapon) item).getNumberOfUsesLeft() == 0) {
+      System.out.println("You dont have no more ammo left");
+    } else if (playerRoom.getEnemy().size() < 1) {
+      System.out.println("There is no enemy");
     } else {
-      System.out.println("Not yet coded");
+      ((Weapon) item).useWeapon();
+      Enemy nearestEnemy = findEnemyinRoom(); //finds nearest enemy
+      System.out.println("You attacked: " + Color.DARK_RED_BACKGROUND + nearestEnemy.getEnemyName() + Color.RESET);
+
+      //fjerner liv fra enemy
+      int enemyHealth = nearestEnemy.getHealth();
+      int enemyNewHealth = enemyHealth - ((Weapon) item).getDamage();
+      nearestEnemy.setHealth(enemyNewHealth);
+      if (enemyNewHealth <= 0) {
+        System.out.println(Color.GREEN_BOLD + "Enemy died" + Color.RESET);
+        String enemyWeapon = nearestEnemy.getEnemyInventory().get(0).toString();
+        playerRoom.addItem(nearestEnemy.getEnemyInventory().get(0));
+        nearestEnemy.getEnemyInventory().remove(0);
+
+        System.out.println("Enemy have dropped the item " + enemyWeapon);
+        playerRoom.getEnemy().remove(0);
+
+
+      } else {
+        System.out.println("Enemies health: " + nearestEnemy.getHealth());
+        int enemyDamage = nearestEnemy.getEnemyInventory().get(0).getDamage();
+
+        System.out.println(Color.DARK_RED + "Enemy damaged you " + enemyDamage + Color.RESET);
+        this.health -= enemyDamage;
+      }
     }
-*/
   }
 
   public void removeFromPlayerInventory(Item item) {

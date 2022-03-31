@@ -139,17 +139,18 @@ public class GameMenu {
           }
         }
         case "use", "shoot", "attack" -> {
-          useWeapon();
+          attack();
         }
         case "unequip" -> {
           unEquipWeapon();
         }
         default -> System.out.println("What are you trying to do? Make it make sense.\nWhat does " + Color.RED + firstWord + TEXT_RESET + " mean?");
       }
+      showEnemies();
+      checkRoomObstacles(player.getPlayerRoom());
       System.out.println("------------------------------------------------------------");
 
       //Check om spilleren har nøglen til rummet, hvis han har så lås rummet op
-      checkRoomObstacles(player.getPlayerRoom());
       checkKey(player.getPlayerRoom());
       checkRope(player.getPlayerRoom());
       checkHealth();
@@ -164,11 +165,11 @@ public class GameMenu {
 
   public void checkRoomObstacles(Room currenRoom) {
     if (player.getPlayerRoom().nameDescription() == "Inside swimming area") {
-      System.out.println(Color.DARK_RED_BACKGROUND + "You start throwing up because of the terrible smell!" + TEXT_RESET);
+      System.out.println(Color.RED + "You start throwing up because of the terrible smell!" + TEXT_RESET);
       int playerLife = player.getHealth() - 10;
       player.setHealth(playerLife);
     } else if (player.getPlayerRoom().nameDescription() == "Prison yard") {
-      System.out.println(Color.DARK_RED_BACKGROUND + "youre getting eaten by mosquitoes" + TEXT_RESET);
+      System.out.println(Color.RED + "youre getting eaten by mosquitoes" + TEXT_RESET);
       int playerLife = player.getHealth() - 5;
       player.setHealth(playerLife);
     }
@@ -384,14 +385,15 @@ public class GameMenu {
     } else if (75 <= playerHealth && playerHealth < 100) {
       System.out.print(Color.GREEN + "You health is in good condition. Dont worry" + TEXT_RESET);
     } else if (playerHealth <= 0) {
-      System.out.print(Color.RED + "Your bleeding out your eyes and nose and everything turns black.\n" + TEXT_RESET +
+      System.out.print(Color.RED + "  |\n" +
           Color.BLACK + "All your memories goes through your mind\n" +
           "All the doctors yelling at you\n" +
           "Trying to wake you up\n" +
           "You got a chance in life and woke up from coma\n" +
           "You woke up from coma after 3 years\n" +
           "and still you fuck up....\n" +
-          Color.RED + "You're dead if you haven't figured out" + TEXT_RESET);
+
+          Color.RED + "Your bleeding out your eyes and nose and everything turns black.\n" + "You're dead if you haven't figured out" + TEXT_RESET);
       gameStatus = false;
     } else if (playerHealth == 100) {
       System.out.print(Color.GREEN + "You have full health" + TEXT_RESET);
@@ -434,11 +436,23 @@ public class GameMenu {
 
   }
 
-  public void useWeapon() {
+  public void showEnemies() {
+    if (player.getPlayerRoom().getEnemy().size() < 1) {
+      System.out.println("There is no enemy in the room");
+    } else {
+      Enemy nearestEnemy = player.findEnemyinRoom(); //finds nearest enemy
+      System.out.println("Enemy in the room: " + Color.RED + nearestEnemy.getEnemyName() + Color.RESET);
+    }
+  }
+
+  public void attack() {
     if (player.getPlayerBelt().size() < 1) {
       System.out.println("You dont have anything to attack with");
     } else {
       player.useWeapon(player.getEquippedWeapon());
+      //hvis spillerens har skud i magasinet, så attack enemy
+
     }
   }
+
 }

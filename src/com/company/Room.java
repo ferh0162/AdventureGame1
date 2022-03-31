@@ -11,6 +11,7 @@ public class Room {
   private Room west;
   private Room south;
   private ArrayList<Item> roomInventory;
+  private ArrayList<Enemy> roomEnemies;
 
   private boolean locked;
   private boolean escape;
@@ -20,7 +21,16 @@ public class Room {
     this.description = description;
     this.locked = false;
     roomInventory = new ArrayList<>();
+    roomEnemies = new ArrayList<>();
 
+  }
+
+  public void addEnemy(Enemy enemy) {
+    roomEnemies.add(enemy);
+  }
+
+  public ArrayList<Enemy> getEnemy() {
+    return roomEnemies;
   }
 
   public void addItem(Item item) {

@@ -15,15 +15,10 @@ public abstract class Weapon extends Item {
       System.out.println("You have attacked with the meleeweapon");
     } else {
       numberOfUsesLeft -= 1;
-      if (numberOfUsesLeft <= 0) {
-        numberOfUsesLeft = 0;
-        System.out.println("no more ammo");
-      } else {
-        System.out.println("BANG!");
+      System.out.println(Color.YELLOW_BACKGROUND + "         BANG! " + Color.RESET);
       }
     }
 
-  }
 
 
   public int getDamage() {

@@ -24,12 +24,14 @@ public class WorldCreator {
     Room room2 = new Room("Mikails Cell", "\u001B[33m" + "This cell looks empty, \n" +
         "There is only a toilet in the corner" +
         "\nThe sink is still running" +
-        "\nIt looks like someone forgot to flush" + "\u001B[0m");
+        "\nIt looks like someone forgot to flush" + "\u001B[0m" +
+        Color.WHITE_ITALIC + "There is a door to the: " + Color.BOXING + " West and East " + Color.RESET);
 
     Room room3 = new Room("Inside swimming area", "\u001B[33m" + "You look around the the swimming pool\n" +
         "around the pool is dirty as hell and the place stinks of waste\n" +
         "The pool is filled with....:\ndead\nrotten\nbodies\n" +
-        "The water has turned dark red, from the blood of all of the bodies" + "\u001B[0m");
+        "The water has turned dark red, from the blood of all of the bodies" + "\u001B[0m" +
+        Color.WHITE_ITALIC + "There is a door to the: " + Color.BOXING + " East and South " + Color.RESET);
 
     Room room4 = new Room("Prison canteen", "\u001B[33m" + "You look around the Canteen\n" +
         "It looks like a mess\n" +
@@ -100,7 +102,8 @@ public class WorldCreator {
     room1.setSouth(room4);
     room1.addItem(new Food("twix"));
     room1.addItem(new Food("pill", -101));
-    room1.addItem(new RangedWeapon("glock", 10));
+    room1.addItem(new RangedWeapon("glock", 20));
+    room1.addEnemy(new Enemy("Homeless Durmus", 45, new MeleeWeapon("osmaner ring", 30)));
 
     //Rum 2
     room2.lock();
@@ -108,6 +111,8 @@ public class WorldCreator {
     room2.addItem(shit);
     room2.setWest(room1);
     room2.setEast(room3);
+    room2.addEnemy(new Enemy("Sigøjner Mikail", 55, new MeleeWeapon("pant flaske ", 20)));
+
 
     //Rum 3
     room3.addItem(new Item("diving goggles"));
@@ -115,8 +120,8 @@ public class WorldCreator {
     room3.setSouth(room6);
 
     //Rum 4
-    room4.addItem(new Item("knife"));
-    room4.addItem(new Item("fork"));
+    room4.addItem(new MeleeWeapon("knife", 10));
+    room4.addItem(new MeleeWeapon("fork", 5));
     room4.setNorth(room1);
     room4.setSouth(room7);
 
