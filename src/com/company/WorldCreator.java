@@ -102,8 +102,7 @@ public class WorldCreator {
     room1.setSouth(room4);
     room1.addItem(new Food("twix"));
     room1.addItem(new Food("pill", -101));
-    room1.addItem(new RangedWeapon("glock", 20));
-    room1.addEnemy(new Enemy("Homeless Durmus", 45, new MeleeWeapon("osmaner ring", 30)));
+    room1.addEnemy(new Enemy("Homeless Durmus", 70, new MeleeWeapon("osmaner ring", 30)));
 
     //Rum 2
     room2.lock();
@@ -111,7 +110,7 @@ public class WorldCreator {
     room2.addItem(shit);
     room2.setWest(room1);
     room2.setEast(room3);
-    room2.addEnemy(new Enemy("Sigøjner Mikail", 55, new MeleeWeapon("pant flaske ", 20)));
+    room2.addEnemy(new Enemy("Sigøjner Mikail", 55, new MeleeWeapon("pant flaske", 10)));
 
 
     //Rum 3
@@ -145,11 +144,14 @@ public class WorldCreator {
     room8.setEast(room9);
     room8.setWest(room7);
     room8.addItem(new Food("painkillers", 50));
+    room8.addItem(new RangedWeapon("glock", 20));
+
 
     //Rum 9
     //room9.setNorth(room6);
     room9.setWest(room8);
     room9.addItem(new Item("key"));
+    room9.addItem(new Food("bandages", 60));
 
 
   }

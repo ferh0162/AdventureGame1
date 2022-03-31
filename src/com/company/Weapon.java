@@ -15,7 +15,7 @@ public abstract class Weapon extends Item {
       System.out.println("You have attacked with the meleeweapon");
     } else {
       numberOfUsesLeft -= 1;
-      System.out.println(Color.YELLOW_BACKGROUND + "         BANG! " + Color.RESET);
+      System.out.println("                      " + Color.YELLOW_BACKGROUND + "   BANG!!!!  " + Color.RESET);
       }
     }
 

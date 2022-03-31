@@ -1,6 +1,5 @@
 package com.company;
 
-import java.net.PortUnreachableException;
 import java.util.Scanner;
 
 public class GameMenu {
@@ -8,6 +7,7 @@ public class GameMenu {
   private boolean gameStatus = true;
   private WorldCreator alltherooms;
   private Player player;
+  private int swimmingArea = 0;
 
 
   public GameMenu() {
@@ -165,12 +165,15 @@ public class GameMenu {
 
   public void checkRoomObstacles(Room currenRoom) {
     if (player.getPlayerRoom().nameDescription() == "Inside swimming area") {
-      System.out.println(Color.RED + "You start throwing up because of the terrible smell!" + TEXT_RESET);
-      int playerLife = player.getHealth() - 10;
-      player.setHealth(playerLife);
+      if (swimmingArea < 1) {
+        swimmingArea++;
+        System.out.println(Color.RED + "You start throwing up because of the terrible smell!" + TEXT_RESET);
+        int playerLife = player.getHealth() - 15;
+        player.setHealth(playerLife);
+      }
     } else if (player.getPlayerRoom().nameDescription() == "Prison yard") {
-      System.out.println(Color.RED + "youre getting eaten by mosquitoes" + TEXT_RESET);
-      int playerLife = player.getHealth() - 5;
+      System.out.println(Color.RED + "you're getting eaten by mosquitoes" + TEXT_RESET);
+      int playerLife = player.getHealth() - 3;
       player.setHealth(playerLife);
     }
   }
@@ -437,11 +440,12 @@ public class GameMenu {
   }
 
   public void showEnemies() {
+    System.out.println();
     if (player.getPlayerRoom().getEnemy().size() < 1) {
       System.out.println("There is no enemy in the room");
     } else {
       Enemy nearestEnemy = player.findEnemyinRoom(); //finds nearest enemy
-      System.out.println("Enemy in the room: " + Color.RED + nearestEnemy.getEnemyName() + Color.RESET);
+      System.out.println("Enemy in the room: " + Color.DARK_RED + nearestEnemy.getEnemyName() + Color.RESET);
     }
   }
 

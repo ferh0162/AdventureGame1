@@ -262,7 +262,7 @@ public class Player {
     } else {
       ((Weapon) item).useWeapon();
       Enemy nearestEnemy = findEnemyinRoom(); //finds nearest enemy
-      System.out.println("You attacked: " + Color.DARK_RED_BACKGROUND + nearestEnemy.getEnemyName() + Color.RESET);
+      System.out.println("You attacked: " + Color.RED_BOLD + nearestEnemy.getEnemyName() + Color.RESET);
 
       //fjerner liv fra enemy
       int enemyHealth = nearestEnemy.getHealth();
@@ -279,10 +279,10 @@ public class Player {
 
 
       } else {
-        System.out.println("Enemies health: " + nearestEnemy.getHealth());
+        System.out.println("Enemy health: " + Color.GREEN + nearestEnemy.getHealth() + Color.RESET);
         int enemyDamage = nearestEnemy.getEnemyInventory().get(0).getDamage();
 
-        System.out.println(Color.DARK_RED + "Enemy damaged you " + enemyDamage + Color.RESET);
+        System.out.println(Color.RED_BOLD + "Enemy damaged you: " + enemyDamage + Color.RESET);
         this.health -= enemyDamage;
       }
     }
