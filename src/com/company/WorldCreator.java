@@ -106,11 +106,10 @@ public class WorldCreator {
 
     //Rum 2
     room2.lock();
-    Food shit = new Food("shit", -40);
-    room2.addItem(shit);
+    room2.addItem(new Food("shit", -40));
     room2.setWest(room1);
     room2.setEast(room3);
-    room2.addEnemy(new Enemy("Sigøjner Mikail", 55, new MeleeWeapon("pant flaske", 10)));
+    room2.addEnemy(new Enemy("Gypsy Mikail", 55, new MeleeWeapon("pant flaske", 10)));
 
 
     //Rum 3

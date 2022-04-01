@@ -146,8 +146,12 @@ public class GameMenu {
         }
         default -> System.out.println("What are you trying to do? Make it make sense.\nWhat does " + Color.RED + firstWord + TEXT_RESET + " mean?");
       }
+      //check om der er enemies i rummet, og giv besked til spilleren
       showEnemies();
+
+      //check om der er obstacles i rummet
       checkRoomObstacles(player.getPlayerRoom());
+
       System.out.println("------------------------------------------------------------");
 
       //Check om spilleren har nøglen til rummet, hvis han har så lås rummet op
@@ -165,6 +169,7 @@ public class GameMenu {
 
   public void checkRoomObstacles(Room currenRoom) {
     if (player.getPlayerRoom().nameDescription() == "Inside swimming area") {
+      // Only throws up once
       if (swimmingArea < 1) {
         swimmingArea++;
         System.out.println(Color.RED + "You start throwing up because of the terrible smell!" + TEXT_RESET);

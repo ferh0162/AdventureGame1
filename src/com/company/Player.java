@@ -170,15 +170,15 @@ public class Player {
     Item item = findIteminPlayerInventory(itemName);
 
     if (item instanceof Food) {
-      if (((Food) item).getHealthPoints() < 0) {
+      if (((Food) item).getHealthPoints() < 0) { //If food is poison
         System.out.println("\u001B[31m" + "What the fuck did i just eat...\n" +
             "I dont feel so good" + "\u001B[0m");
 
-      } else if (((Food) item).getHealthPoints() > 0 && health == 100) {
+      } else if (((Food) item).getHealthPoints() > 0 && health == 100) { //if player has full health and decides to eat
         System.out.println("Well that was a waste off food\n" +
             "I was already full");
         //  health += ((Food) item).getHealthPoints();
-      } else if ((((Food) item).getHealthPoints() + health) > 100) {
+      } else if ((((Food) item).getHealthPoints() + health) > 100) { //if food is more han enough
         System.out.println("There is too much to eat, i am full now");
       }
       playerInventory.remove(item);
