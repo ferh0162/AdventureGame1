@@ -7,7 +7,7 @@ public class GameMenu {
   private boolean gameStatus = true;
   private WorldCreator alltherooms;
   private Player player;
-  private int swimmingArea = 0;
+  private int swimmingArea = 0; //Bruges til at tjekke om man har været i swimming area før
 
 
   public GameMenu() {
