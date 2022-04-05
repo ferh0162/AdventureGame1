@@ -1,5 +1,6 @@
 package com.company;
 
+import java.util.Locale;
 import java.util.Scanner;
 
 public class GameMenu {
@@ -8,6 +9,15 @@ public class GameMenu {
   private WorldCreator alltherooms;
   private Player player;
   private int swimmingArea = 0; //Bruges til at tjekke om man har været i swimming area før
+  private Room tidligererum;
+  private int hospital = 0;
+  private int canteen = 0;
+  private int partyRoom = 0;
+  private int prisonYard = 0;
+  private int tortureRoom = 0;
+  private int mikailscell = 0;
+  private int DarkRoom = 0;
+  private int swimmingRoom = 0;
 
 
   public GameMenu() {
@@ -21,11 +31,13 @@ public class GameMenu {
 
     player.setPlayerRoom(alltherooms.getStarterRoom());
 
+
     while (gameStatus) {
       Scanner sc = new Scanner(System.in);
-      System.out.print(Color.WHITE_BOLD + "Where should i " + Color.BLUE + "go to" + TEXT_RESET + Color.WHITE_BOLD + "? Maybe take a " + Color.BLUE + "look" + TEXT_RESET + Color.WHITE_BOLD + " around or " + Color.BLUE +
-          "search" + TEXT_RESET + Color.WHITE_BOLD + " for items in the room?\nor " + Color.BLUE + "take | drop | eat | Equip | Unequip | Attack | Ammo | map |  HELP  |\n\n" + TEXT_RESET
+      System.out.print(Color.BLUE + "Go + direction | Search | take | drop | eat | Equip | Unequip | Attack | Ammo | map |  HELP  |\n" + TEXT_RESET
           + Color.WHITE_BOLD + Color.PURPLE_BOLD + "Whats you next move?: " + TEXT_RESET);
+
+      this.tidligererum = player.getPlayerRoom();
 
       String nextMove = sc.nextLine();
       nextMove = nextMove.toLowerCase();
@@ -48,9 +60,10 @@ public class GameMenu {
       } else {
         firstWord = text; // Text is the first word itself.
       }
-      System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 
-      //footPrints();
+      System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+
+      checkHealth();
       System.out.println("------------------------------------------------------------");
 
       switch (firstWord) {
@@ -84,6 +97,8 @@ public class GameMenu {
         case "show", "sh", "search" -> {
           // Viser hvilke items der er i det room som player er inden i
           System.out.println("searching for items in the room...");
+          System.out.println("...");
+          System.out.println("...");
           System.out.println("While searching for items,\nyou find this inside the room:");
           printItemsInRoom();
         }
@@ -117,8 +132,10 @@ public class GameMenu {
         case "exit", "end" -> {
           exitGame();
         }
-        case "eat" -> {
+        case "use", "eat" -> {
           if (text.equals("eat")) {
+            eat();
+          } else if (text.equals("use")) {
             eat();
           } else {
             eat(secondWord);
@@ -138,7 +155,7 @@ public class GameMenu {
             equipWeapon(secondWord);
           }
         }
-        case "use", "shoot", "attack" -> {
+        case "shoot", "attack" -> {
           attack();
         }
         case "unequip" -> {
@@ -148,6 +165,7 @@ public class GameMenu {
       }
       //check om der er enemies i rummet, og giv besked til spilleren
       showEnemies();
+      checkLook();
 
       //check om der er obstacles i rummet
       checkRoomObstacles(player.getPlayerRoom());
@@ -157,7 +175,6 @@ public class GameMenu {
       //Check om spilleren har nøglen til rummet, hvis han har så lås rummet op
       checkKey(player.getPlayerRoom());
       checkRope(player.getPlayerRoom());
-      checkHealth();
       checkGameStatus();
       System.out.println();
     }
@@ -165,6 +182,58 @@ public class GameMenu {
 
   public void look() {
     System.out.println(player.getPlayerRoom().decsriptionDescription());
+  }
+
+  public void checkLook() {
+    if (player.getPlayerRoom().nameDescription() == "Prison Hospital Room") {
+      if (this.hospital == 0) {
+        look();
+        this.hospital++;
+      }
+    }
+    if (player.getPlayerRoom().nameDescription() == "Mikails Cell") {
+      if (mikailscell == 0) {
+        look();
+      }
+      this.mikailscell++;
+    }
+    if (player.getPlayerRoom().nameDescription() == "Inside swimming area") {
+      if (swimmingRoom == 0) {
+        look();
+      }
+      this.swimmingRoom++;
+    }
+    if (player.getPlayerRoom().nameDescription() == "Prison canteen") {
+      if (this.canteen == 0) {
+        look();
+        this.canteen++;
+
+      }
+    }
+    if (player.getPlayerRoom().nameDescription() == "The dark room") {
+      if (this.DarkRoom == 0) {
+        look();
+        this.DarkRoom++;
+      }
+    }
+    if (player.getPlayerRoom().nameDescription() == "Partyroom") {
+      if (partyRoom == 0) {
+        look();
+        this.partyRoom++;
+      }
+    }
+    if (player.getPlayerRoom().nameDescription() == "Prison yard") {
+      if (this.prisonYard == 0) {
+        look();
+      }
+      this.prisonYard++;
+    }
+    if (player.getPlayerRoom().nameDescription() == "Torture room") {
+      if (tortureRoom == 0) {
+        look();
+      }
+      this.tortureRoom++;
+    }
   }
 
   public void checkRoomObstacles(Room currenRoom) {
@@ -207,6 +276,7 @@ public class GameMenu {
     System.out.println();
     System.out.println(Color.YELLOW + "NEW FEATURE!" + Color.RESET + " You can also " + Color.BOXING + " take + itemname " + Color.RESET);
     System.out.println();
+
 
   }
 
@@ -259,6 +329,31 @@ public class GameMenu {
   public void welcomeMessage() {
     System.out.println(Color.GREEN + "Welcome to the adventure game!");
     System.out.println();
+    help();
+    System.out.println(Color.GREEN_BOLD_BRIGHT + "PRESS ENTER TO START GAME" + Color.RESET);
+    Scanner sc = new Scanner(System.in);
+    String enter = sc.nextLine();
+    System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+    System.out.println("Starting game!");
+    System.out.println(".");
+    System.out.println("..");
+    System.out.println("...");
+    System.out.println("....");
+    System.out.println("......");
+    System.out.println("LOADING..");
+    System.out.println("....");
+    System.out.println("....");
+    System.out.println("....");
+    System.out.println("....");
+    System.out.println("LOADING..");
+    System.out.println("....");
+    System.out.println("....");
+    System.out.println("....");
+    System.out.println("....");
+    System.out.println("LOADING..");
+
+
+    System.out.println();
     System.out.println(Color.YELLOW + "*THERE IS A NOTE ON THE TABLE*");
     System.out.println("In the notes it states:");
     System.out.println("Hello there prisoner 31");
@@ -268,7 +363,9 @@ public class GameMenu {
     System.out.println("If you wake up one day, you are free to go, every man is for himself");
     System.out.println("I wish you the best of luck\n *UGLY ASS SIGNATURE*\n2023/6/17" + TEXT_RESET);
     System.out.println();
-    help();
+    System.out.print(Color.WHITE_BOLD + "Where should i " + Color.BLUE + "go to" + TEXT_RESET + Color.WHITE_BOLD + "? Maybe take a " + Color.BLUE + "look" + TEXT_RESET + Color.WHITE_BOLD + " around or " + Color.BLUE +
+        "search" + TEXT_RESET + Color.WHITE_BOLD + " for items in the room?\nor " + Color.BLUE + "take | drop | eat | Equip | Unequip | Attack | Ammo | map |  HELP  |\n\n" + TEXT_RESET
+        + TEXT_RESET);
   }
 
   public void dropItems() {
@@ -375,6 +472,7 @@ public class GameMenu {
     }
 
   }
+
   public void printItemsInRoom() {
     // Den returnere her inventorylist som er inden i rooms klassen
     // så den returnere inventorylist for det room som playeren er inden i
@@ -419,8 +517,11 @@ public class GameMenu {
     System.out.println(player.getPlayerInventory());
     String valgteItem = sc.nextLine();
     System.out.println();
-
     System.out.println(player.equip(valgteItem));
+    System.out.println("Remember to unequip your weapon if you already have one equipped. You cant use both");
+    System.out.print("Your equipped weapons / Playerbelt: ");
+    System.out.println(player.getPlayerBelt());
+
   }
 
   public void equipWeapon(String item) {
@@ -446,17 +547,50 @@ public class GameMenu {
 
   public void showEnemies() {
     System.out.println();
+    Scanner sc = new Scanner(System.in);
     if (player.getPlayerRoom().getEnemy().size() < 1) {
-      System.out.println("There is no enemy in the room");
+      System.out.print("");
     } else {
+      System.out.println(Color.RED + "------------------------------------------------------------" + Color.RESET);
       Enemy nearestEnemy = player.findEnemyinRoom(); //finds nearest enemy
-      System.out.println("Enemy in the room: " + Color.DARK_RED + nearestEnemy.getEnemyName() + Color.RESET);
+      System.out.println(Color.RED + "You have encountered an enemy!!");
+      System.out.println();
+      System.out.println(Color.RED_BRIGHT + nearestEnemy.getEnemyName() + Color.RESET + " Is looking at you very angrily!");
+      System.out.println();
+      System.out.println(Color.YELLOW_BRIGHT + "Choose between the actions: ");
+      System.out.println("1. Attack" + Color.BLACK + " If you have the balls to do it" + Color.RESET);
+      System.out.println(Color.YELLOW_BRIGHT + "2. Run" + Color.BLACK + " If youre a little pussy" + Color.RESET);
+      System.out.println(Color.RED + "--------------------------------" + Color.RESET);
+      System.out.print(Color.YELLOW_BRIGHT + "Whats do you Choose? !!: " + TEXT_RESET);
+      String newMove = sc.nextLine().toLowerCase(Locale.ROOT);
+      System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+      switch (newMove) {
+        case "attack", "1" -> {
+          checkHealth();
+          attack();
+          showEnemies();
+        }
+        case "run", "2" -> {
+          System.out.println();
+          System.out.println("------------------------------------------------------------");
+          System.out.println("You are back in: " + tidligererum.nameDescription());
+          player.setPlayerRoom(tidligererum);
+        }
+        default -> {
+          System.out.println(Color.RED + newMove + Color.RESET + " is an invalid move");
+          System.out.println();
+          System.out.println("------------------------------------------------------------");
+          System.out.println("You are back in: " + tidligererum.nameDescription());
+          player.setPlayerRoom(tidligererum);
+        }
+      }
     }
   }
 
+
   public void attack() {
     if (player.getPlayerBelt().size() < 1) {
-      System.out.println("You dont have anything to attack with");
+      System.out.println("You dont have any weapon equipped!");
     } else {
       player.useWeapon(player.getEquippedWeapon());
       //hvis spillerens har skud i magasinet, så attack enemy

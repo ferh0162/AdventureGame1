@@ -13,15 +13,63 @@ public class WorldCreator {
   }
 
   public void allRooms() {
-    Room room1 = new Room("Prison hospital room", "\u001B[33m" + "You look around the room and find yourself all alone\n" +
-        "The room is small, cold and bloody...\n" +
-        "all  the supplies are gone\n" +
-        "But on the note, that they left me, there is a Twix bar\n" +
-        "The watch on the table states that the todays date is 2026/7/16\n" +
-        "There is also a pill that says" + "\u001B[31m" + " 'NOT FOR HUMANS'" + "\u001B[0m\n\n" +
-        Color.WHITE_ITALIC + "There is a door to the: " + Color.BOXING + " East and South " + Color.RESET);
+    Room room1 = new Room("Prison hospital room",
+        "              _________\n" +
+            "             {_________}\n" +
+            "              )=======(\n" +
+            "             /         \\\n" +
+            "            | _________ |\n" +
+            "            ||   _     ||\n" +
+            "            ||  |_)    ||\n" +
+            "            ||  | \\/  ||\n" +
+            "      __    ||    /\\  ||\n" +
+            " __  (_|)   |'---------'|\n" +
+            "(_|)        `-.........-'" +
+            "\n" +
+            "------------------------------------------------------------\n" +
+            "\u001B[33m" + "You look around the room and find yourself all alone\n" +
+            "The room is small, cold and bloody...\n" +
+            "all  the supplies are gone\n" +
+            "But on the note, that they left me, there is a Twix bar\n" +
+            "The watch on the table states that the todays date is 2026/7/16\n" +
+            "There is also a pill that says" + "\u001B[31m" + " 'NOT FOR HUMANS'" + "\u001B[0m\n\n" +
+            Color.WHITE_ITALIC + "There is a door to the: " + Color.BOXING + " East and South " + Color.RESET);
 
-    Room room2 = new Room("Mikails Cell", "\u001B[33m" + "This cell looks empty, \n" +
+    Room room2 = new Room("Mikails Cell", "     \\                  ###########                  /\n" +
+        "      \\                  #########                  /\n" +
+        "       \\                                           /\n" +
+        "        \\                                         /\n" +
+        "         \\                                       /\n" +
+        "          \\                                     /\n" +
+        "           \\                                   /\n" +
+        "            \\_________________________________/\n" +
+        "            |                                 |\n" +
+        "            |                                 |\n" +
+        "            |                                 |\n" +
+        "            |            _________            |\n" +
+        "            |           |         |           |\n" +
+        "            |           |   ___   |           |\n" +
+        "            |           I  |___|  |           |\n" +
+        "            |           |         |           |\n" +
+        "            |           |         |           |\n" +
+        "            |           |        _|           |\n" +
+        "            |           |       |#|           |  ;,\n" +
+        "    -- ___  |           |         |           |   ;'\n" +
+        "    H*/   ` |           |         |      _____|    .,`\n" +
+        "    */     )|           I         |     \\_____\\     ;'\n" +
+        "    /___.,';|           |         |     \\\\     \\     .\"`\n" +
+        "    |     ; |___________|_________|______\\\\     \\      ;:\n" +
+        "    | ._,'  /                             \\\\     \\      .\n" +
+        "    |,'    /                               \\\\     \\\n" +
+        "    ||    /                                 \\\\_____\\\n" +
+        "    ||   /                                   \\_____|\n" +
+        "    ||  /              ___________                \\\n" +
+        "    || /              / =====o    |                \\\n" +
+        "    ||/              /  |   /-\\   |                 \\\n" +
+        "    //              /   |         |                  \\\n" +
+        "   //              /    |   ____  |______             \\\n" +
+        "------------------------------------------------------------\n" +
+        "\u001B[33m" + "This cell looks empty, \n" +
         "There is only a toilet in the corner" +
         "\nThe sink is still running" +
         "\nIt looks like someone forgot to flush" + "\u001B[0m" +
@@ -33,7 +81,19 @@ public class WorldCreator {
         "The water has turned dark red, from the blood of all of the bodies" + "\u001B[0m" +
         Color.WHITE_ITALIC + "There is a door to the: " + Color.BOXING + " East and South " + Color.RESET);
 
-    Room room4 = new Room("Prison canteen", "\u001B[33m" + "You look around the Canteen\n" +
+    Room room4 = new Room("Prison canteen", "       _\n" +
+        "      / )\n" +
+        "|||| / /\n" +
+        "||||/ /\n" +
+        "\\__(_/\n" +
+        " ||//\n" +
+        " ||/\n" +
+        " ||\n" +
+        "(||      \n" +
+        " \"\"" +
+        "\n" +
+        "------------------------------------------------------------\n" +
+        "\u001B[33m" + "You look around the Canteen\n" +
         "It looks like a mess\n" +
         "There is knives and forks everywhere on the floor\n" +
         "Food on the ground...\n" +
@@ -63,6 +123,7 @@ public class WorldCreator {
         "| |          || ||\n" +
         "| |         / | | \\\n" +
         "            `-' `-'         \n" +
+        "------------------------------------------------------------\n" +
         "\n\u001B[33m" + "You look around, but cant se a thing\n" +
         "It does smell like there is a dead body inside." + "\u001B[0m");
 
@@ -102,18 +163,17 @@ public class WorldCreator {
     room1.setSouth(room4);
     room1.addItem(new Food("twix"));
     room1.addItem(new Food("pill", -101));
-    room1.addEnemy(new Enemy("Homeless Durmus", 70, new MeleeWeapon("osmaner ring", 30)));
 
     //Rum 2
     room2.lock();
     room2.addItem(new Food("shit", -40));
     room2.setWest(room1);
     room2.setEast(room3);
-    room2.addEnemy(new Enemy("Gypsy Mikail", 55, new MeleeWeapon("pant flaske", 10)));
+    room2.addEnemy(new Enemy("Gypsy Mikail", 55, new MeleeWeapon("pant-flaske", 10)));
 
 
     //Rum 3
-    room3.addItem(new Item("diving goggles"));
+    room3.addItem(new Item("diving-goggles"));
     room3.setWest(room2);
     room3.setSouth(room6);
 
@@ -151,6 +211,7 @@ public class WorldCreator {
     room9.setWest(room8);
     room9.addItem(new Item("key"));
     room9.addItem(new Food("bandages", 60));
+    room9.addEnemy(new Enemy("Homeless Durmus", 70, new MeleeWeapon("osmaner-ring", 30)));
 
 
   }

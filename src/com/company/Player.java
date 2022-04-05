@@ -235,7 +235,7 @@ public class Player {
 
       }
     }
-    return itemName + " does not exist";
+    return itemName + " is not something you can equip";
   }
 
   public String unEquip(String itemName) {
@@ -278,7 +278,7 @@ public class Player {
         playerRoom.getEnemy().remove(0);
 
 
-      } else {
+      } else if (enemyNewHealth > 0) {
         System.out.println("Enemy health: " + Color.GREEN + nearestEnemy.getHealth() + Color.RESET);
         int enemyDamage = nearestEnemy.getEnemyInventory().get(0).getDamage();
 

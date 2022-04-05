@@ -33,6 +33,10 @@ public class Room {
     return roomEnemies;
   }
 
+  public int getnEnemyHealth() {
+    return roomEnemies.get(0).getHealth();
+  }
+
   public void addItem(Item item) {
     roomInventory.add(item);
   }
