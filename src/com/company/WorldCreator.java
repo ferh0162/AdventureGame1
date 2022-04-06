@@ -97,12 +97,12 @@ public class WorldCreator {
         "It looks like a mess\n" +
         "There is knives and forks everywhere on the floor\n" +
         "Food on the ground...\n" +
-        "And it smells absoloutely horrifc" + "\u001B[0m");
+        "And it smells absoloutely horrifc" + "\u001B[0m" +
+        Color.WHITE_ITALIC + "There is a door to the: " + Color.BOXING + " North and South " + Color.RESET);
 
     Room room5 = new Room("Outside to freedom", "\u001B[33m" + "You`re now ontop of a hill the sun is shinning on you.\n" +
         "And your now relieved that your finally out of the prison\n" +
         "As you look up at the hot sun burning your skin, you hear a helicopter a far" + "\u001B[0m");
-
     Room room6 = new Room("The dark room", "" +
         " ___________.._______\n" +
         "| .__________))______|\n" +
@@ -125,13 +125,15 @@ public class WorldCreator {
         "            `-' `-'         \n" +
         "------------------------------------------------------------\n" +
         "\n\u001B[33m" + "You look around, but cant se a thing\n" +
-        "It does smell like there is a dead body inside." + "\u001B[0m");
+        "It does smell like there is a dead body inside." + "\u001B[0m" +
+        Color.WHITE_ITALIC + "There is a door to the: " + Color.BOXING + " North " + Color.RESET);
 
     Room room7 = new Room("Partyroom", "\u001B[33m" + "You look around the festival room\nThere is a lot of musical instruments\n" +
         "Whats that...?\n" +
         "You hear the drums playing very lightly\n" +
         "But there is no rhytm to it" +
-        "There is a stack of insects inside the drum.\nDisgusting..." + "\u001B[0m\n");
+        "There is a stack of insects inside the drum.\nDisgusting..." + "\u001B[0m\n" +
+        Color.WHITE_ITALIC + "There is a door to the: " + Color.BOXING + " North and East " + Color.RESET);
 
     Room room8 = new Room("Prison yard", "" +
         "                 _  _\n" +
@@ -149,12 +151,14 @@ public class WorldCreator {
         "The grass has gotten tall, and it actually looks pretty beautiful " +
         "but watch out there may be something lurking in the dark corners\n" +
         "further behind the tall grass you see a suitcase\n" +
-        "it looks like something from the ARMY\n" + "\u001B[0m");
+        "it looks like something from the ARMY\n" + "\u001B[0m" +
+        Color.WHITE_ITALIC + "There is a door to the: " + Color.BOXING + " West and South " + Color.RESET);
 
     Room room9 = new Room("Torture room", "\u001B[33m" + "You have entere a torture room\n" +
         "with a few torture instruments which have been used to execute deathrow prisoners\n" +
         "There is a table in the corner with a bloody key on it\n" +
-        "How humane... There is also a medical bag" + "\u001B[0m");
+        "How humane... There is also a medical bag" + "\u001B[0m" +
+        Color.WHITE_ITALIC + "There is a door to the: " + Color.BOXING + " West " + Color.RESET);
 
     starterRoom = room1;
     winnerRoom = room5;
@@ -195,6 +199,7 @@ public class WorldCreator {
     //rum 7
     room7.addItem(new Item("guitar"));
     room7.addItem(new Food("insect", -15));
+    room7.addEnemy(new Enemy("Pastor Firat", 10, new MeleeWeapon("cross", 5)));
     room7.setNorth(room4);
     room7.setEast(room8);
 

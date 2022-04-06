@@ -185,7 +185,7 @@ public class GameMenu {
   }
 
   public void checkLook() {
-    if (player.getPlayerRoom().nameDescription() == "Prison Hospital Room") {
+    if (player.getPlayerRoom().nameDescription() == "Prison hospital room") {
       if (this.hospital == 0) {
         look();
         this.hospital++;
