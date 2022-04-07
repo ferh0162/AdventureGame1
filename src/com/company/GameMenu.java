@@ -62,8 +62,6 @@ public class GameMenu {
       }
 
       System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-
-      checkHealth();
       System.out.println("------------------------------------------------------------");
 
       switch (firstWord) {
@@ -171,6 +169,7 @@ public class GameMenu {
       checkRoomObstacles(player.getPlayerRoom());
 
       System.out.println("------------------------------------------------------------");
+      checkHealth();
 
       //Check om spilleren har nøglen til rummet, hvis han har så lås rummet op
       checkKey(player.getPlayerRoom());
@@ -566,9 +565,9 @@ public class GameMenu {
       System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
       switch (newMove) {
         case "attack", "1" -> {
-          checkHealth();
           attack();
           showEnemies();
+          checkHealth();
         }
         case "run", "2" -> {
           System.out.println();

@@ -227,7 +227,7 @@ public class Player {
       if (item != null) {
 
         // Herfra tilføjer vi item, som vi lige har oprettet, til playerinventorys Arraylist
-        playerBelt.add((Weapon) item);
+        playerBelt.add(0, (Weapon) item);
 
         // Her sletter vi så item kniv fra rummet. Dvs. det room som playeren er ind, skal have et item fjernet
         removeFromPlayerInventory(item /* "Kniv" */);
